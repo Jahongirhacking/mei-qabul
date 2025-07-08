@@ -139,6 +139,7 @@ html {
 
 .bg-glow {
   background: linear-gradient(38deg, #fa6775, #ffc400, #fa6775);
+  font-weight: 600;
 }
 
 @keyframes spinner {
