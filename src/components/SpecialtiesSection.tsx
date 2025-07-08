@@ -1,11 +1,10 @@
 import { Trans, useTranslation } from "react-i18next"
 
-import { useGetPublicSpecialties } from "@/api/services/public.service"
-import { PublicSpecialtyCard } from "@/components/cards/PublicSpecialtyCard"
+// import { useGetPublicSpecialties } from "@/api/services/public.service"
 
 export const SpecialtiesSection = () => {
   const { t } = useTranslation()
-  const { data = [] } = useGetPublicSpecialties()
+  // const { data = [] } = useGetPublicSpecialties()
 
   return (
     <section className="py-20 px-6">
@@ -21,7 +20,7 @@ export const SpecialtiesSection = () => {
         </div>
 
         <div>
-          {data.map((item) => (
+          {/* {data?.map((item) => (
             <div key={item.eduType} className="mb-8">
               <div className="my-6">
                 <h2 className="text-3xl font-bold text-university-secondary-600">{item.eduType}</h2>
@@ -32,7 +31,7 @@ export const SpecialtiesSection = () => {
                 ))}
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </section>

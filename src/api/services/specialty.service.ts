@@ -46,11 +46,9 @@ type AdmissionParams = {
 }
 
 export const useGetAdmissionDegrees = ({
-  eduLevelId,
-  eduTypeId,
   admissionTypeId
-}: Pick<AdmissionParams, 'eduTypeId' | 'eduLevelId' | 'admissionTypeId'>) =>
-  useGet<EduDegree[]>(`/edu-type/${eduTypeId}/edu-level/${eduLevelId}/degrees`, { admissionTypeId })
+}: Pick<AdmissionParams, 'admissionTypeId'>) =>
+  useGet<EduDegree[]>(`/admission/degrees`, { admissionTypeId })
 
 export const useGetAdmissionLanguages = (
   params: Pick<AdmissionParams, 'eduTypeId' | 'eduLevelId' | 'degreeId' | 'admissionTypeId'>
@@ -60,9 +58,7 @@ export const useGetAdmissionLanguages = (
   })
 
 export const useGetAdmissionSpecialties = (params: AdmissionParams) =>
-  useGet<Specialty[]>('/admission/specialities/by-classificatory', params, {
-    enabled: checkIsValidValues(params)
-  })
+  useGet<Specialty[]>('/admission/specialities/by-classificatory', params)
 
 export const useApply = (options: MutationOptions<ApplyDto, BaseResponse<string>>) =>
   useCreate<BaseResponse<string>, ApplyDto>('/application', options)

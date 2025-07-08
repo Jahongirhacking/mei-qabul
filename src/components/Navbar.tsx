@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils"
 import { UserCircle } from "lucide-react"
 
 import { AnimatedButton } from "./AnimatedButton"
-import SelectLanguage from "./SelectLanguage"
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -68,7 +67,7 @@ export const Navbar = () => {
                   </div>
                 )}
               </div>
-              <SelectLanguage />
+              {/* <SelectLanguage /> */}
             </div>
           </div>
 

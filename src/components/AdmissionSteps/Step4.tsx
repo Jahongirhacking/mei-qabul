@@ -54,7 +54,7 @@ export function AdmissionStep4() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { eduTypeId, eduLevelId, specialtyId, examType, degreeId, languageId, admissionTypeId } =
+  const { eduLevelId, specialtyId, examType, degreeId, languageId, admissionTypeId } =
     useAdmissionStore(useShallow((state) => state.stepState))
 
   const setCurrentStep = useAdmissionStore((state) => state.setCurrentStep)
@@ -79,16 +79,10 @@ export function AdmissionStep4() {
   }
 
   const { data: specialties } = useGetAdmissionSpecialties({
-    eduLevelId: isTransferAdmissionType ? eduLevelId! + 1 : eduLevelId,
-    eduTypeId,
     degreeId,
-    languageId,
-    admissionTypeId
   })
   const { data: degrees, isFetching: loading } = useGetAdmissionDegrees({
-    eduLevelId: isTransferAdmissionType ? eduLevelId! + 1 : eduLevelId,
-    eduTypeId,
-    admissionTypeId
+    // admissionTypeId
   })
   // const { data: languages, isFetching: languagesLoading } = useGetAdmissionLanguages({
   //   eduLevelId: isTransferAdmissionType ? eduLevelId! + 1 : eduLevelId,
@@ -103,7 +97,7 @@ export function AdmissionStep4() {
     }
   })
 
-  const isApplyDisabled = !examType
+  const isApplyDisabled = !degreeId || !specialtyId
   const isExamTypeHidden = true
 
   const { create: apply, isCreating } = useApply({

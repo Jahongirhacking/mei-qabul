@@ -1,5 +1,3 @@
-import { useGet } from '@/api/services/crud.service'
-
 export interface PublicSpecialtyByEduType {
   eduType: string
   specialities: PublicSpecialty[]
@@ -23,9 +21,9 @@ export interface PublicSpecialty {
   degreeAndContractPrices: DegreeAndContractPrice[]
 }
 
-export const useGetPublicSpecialties = () =>
-  useGet<PublicSpecialtyByEduType[]>(
-    '/admission/specialities',
-    {},
-    { staleTime: 6 * 60 * 60 * 1000 }
-  )
+// export const useGetPublicSpecialties = () =>
+//   useGet<PublicSpecialtyByEduType[]>(
+//     '/admission/specialities',
+//     {},
+//     { staleTime: 6 * 60 * 60 * 1000 }
+//   )

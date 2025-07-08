@@ -17,6 +17,7 @@ export interface BachelorAdmissionDto {
   admissionTypeId: number
   graduatedYear: number
   eduInstitutionTypeId: number
+  schoolCertificate: string
 }
 
 export interface TransferAdmissionDto {

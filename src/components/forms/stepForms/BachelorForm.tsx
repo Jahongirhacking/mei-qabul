@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { HOST } from '@/api/http'
 import { useGetCertificates } from '@/api/services/certificate.service'
 import { useGetEduInstitutionTypesList } from '@/api/services/common.service'
 import {
@@ -17,8 +18,8 @@ import { SelectInput } from '@/components/inputs/SelectInput'
 import { StepButton } from '@/components/shared/StepButton'
 import { UserCertificates } from '@/components/shared/UserCertiicates'
 import { useSaveStepState } from '@/hooks/useSaveStepState'
-import { Form } from 'antd'
-import { BookOpen, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button, Flex, Form, message, Upload } from 'antd'
+import { BookOpen, CheckCircle2, ChevronLeft, ChevronRight, UploadCloud } from 'lucide-react'
 import { useShallow } from 'zustand/react/shallow'
 
 export function BachelorForm() {
@@ -51,10 +52,10 @@ export function BachelorForm() {
   })
 
   const changeStepState = useAdmissionStore((state) => state.changeStepState)
-  const { eduInstitutionTypeId } = useAdmissionStore(useShallow((state) => state.stepState))
+  const { eduInstitutionTypeId, schoolCertificate } = useAdmissionStore(useShallow((state) => state.stepState))
 
   const isCertificateRequired = isHaveCertificate && certificates.length === 0
-  const isNextDisabled = !eduInstitutionTypeId || isCertificateRequired
+  const isNextDisabled = !eduInstitutionTypeId || isCertificateRequired || !schoolCertificate
   const isNextLoading = saveStepStateLoading || isCreating || isUpdating
 
   const prevStep = () => {
@@ -69,7 +70,8 @@ export function BachelorForm() {
     const dto: BachelorAdmissionDto = {
       admissionTypeId: admissionTypeId!,
       eduInstitutionTypeId: eduInstitutionTypeId!,
-      graduatedYear
+      graduatedYear,
+      schoolCertificate: schoolCertificate || ''
     }
 
     if (oldEdu) {
@@ -123,6 +125,38 @@ export function BachelorForm() {
                 placeholder={t('label.graduatedYear')}
                 options={GRADUATED_YEARS.map((item) => ({ label: item, value: item }))}
               />
+            </Form.Item>
+
+            <Form.Item
+              name="schoolCertificate"
+              label={"Диплом об окончании учебного заведения"}
+            >
+              <Upload
+                name={'file'}
+                action={`${HOST}/file/upload`}
+                headers={{
+                  authorization: 'authorization-text',
+                }}
+                showUploadList={false}
+                onChange={(info) => {
+                  if (info.file.status === 'done') {
+                    message.success(`Файл успешно загружен`);
+                    changeStepState({ schoolCertificate: info?.file?.response?.url })
+                  } else if (info.file.status === 'error') {
+                    message.error(`Ошибка при загрузке файла`);
+                  }
+                }}
+              >
+                <Button icon={<UploadCloud />}> Hujjat yuklash</Button>
+              </Upload>
+              {
+                schoolCertificate && (
+                  <Flex className='my-2' gap={8}>
+                    <CheckCircle2 color='green' />
+                    <a href={schoolCertificate} target='_blank'>{schoolCertificate}</a>
+                  </Flex>
+                )
+              }
             </Form.Item>
           </div>
         </div>

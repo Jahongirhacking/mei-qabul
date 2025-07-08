@@ -17,6 +17,7 @@ export type StepState = {
   speciality: string
   university: string
   diplomaUrl: string
+  schoolCertificate: string
 }
 
 export type AdmissionStepState = {

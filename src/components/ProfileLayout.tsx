@@ -5,7 +5,6 @@ import { useAuthStore } from "@/app/store/authStore"
 import { ProfileSidebar } from "@/components/ProfileSidebar"
 import { AdmissionTracking } from "@/components/shared/AdmissionTracking"
 import { UserCircle } from "lucide-react"
-import SelectLanguage from "./SelectLanguage"
 
 export default function ProfileLayout() {
   const user = useAuthStore((state) => state.user)
@@ -29,7 +28,7 @@ export default function ProfileLayout() {
                   </button>
                 </Link>
               </div>
-              <SelectLanguage />
+              {/* <SelectLanguage /> */}
             </div>
 
           </div>

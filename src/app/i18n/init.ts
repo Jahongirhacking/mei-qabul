@@ -9,7 +9,7 @@ const currentMode = import.meta.env.MODE
 
 i18next.use(initReactI18next).init({
   debug: currentMode === 'development',
-  lng: localStorage.getItem('lang') ?? 'ru',
+  lng: 'ru',
   fallbackLng: 'ru',
   interpolation: {
     escapeValue: false
