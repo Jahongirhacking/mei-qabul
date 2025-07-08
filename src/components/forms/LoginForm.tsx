@@ -72,9 +72,10 @@ export const LoginForm = () => {
 
           setUser(user)
 
-          const isApplied = !!user?.applicantRegistrationForm
+          // const isApplied = !!user?.applicantRegistrationForm
 
-          const path = isApplied ? "/user/applications" : "/admission"
+          // const path = isApplied ? "/user/applications" : "/admission"
+          const path = "/user/applications"
 
           toast.success("Вы успешно вошли!")
 
@@ -100,6 +101,10 @@ export const LoginForm = () => {
       }
     }
   }, [])
+
+  const toggleIsBeforeAuth = () => {
+    setIsAuthorizedBefore((prev) => !prev || null)
+  }
 
   const forgotPassword = () => {
     const phoneNumber = form.getFieldValue("phoneNumber")
@@ -148,8 +153,8 @@ export const LoginForm = () => {
           ))}
 
 
-        <Flex gap={8}>
-          <Checkbox checked={!!isAuthorizedBefore} onChange={e => setIsAuthorizedBefore(e.target.checked || null)} />
+        <Flex gap={8} onClick={toggleIsBeforeAuth} style={{ cursor: 'pointer' }}>
+          <Checkbox checked={!!isAuthorizedBefore} />
           <span>У меня есть пароль</span>
         </Flex>
 
