@@ -106,7 +106,7 @@ export const Header = React.memo(function Header({ toggle, collapsed }: HeaderPr
 
               <Button danger type="primary" onClick={logout}>
                 <LogOut size={20} />
-                Chiqish
+                Выход
               </Button>
             </div>
           }

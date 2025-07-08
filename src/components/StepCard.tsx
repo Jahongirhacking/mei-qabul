@@ -40,7 +40,7 @@ export const StepCard: React.FC<StepCardProps> = ({ number, title, description, 
   }, [delay])
 
   return (
-    <div ref={cardRef} className={cn("bg-white rounded-xl p-6 blue-card-shadow card-hover", "border border-gray-100 transition-all duration-700 opacity-0 translate-y-10")}>
+    <div ref={cardRef} className={cn("bg-white rounded-xl p-6 blue-card-shadow card-hover", "border border-gray-100 transition-all duration-700 opacity-0 translate-y-10 flex-1 min-w-52")}>
       <div className="flex flex-col items-center text-center">
         <div className="flex items-center justify-center w-10 h-10 rounded-full bg-university-secondary text-white font-bold mb-4">{number}</div>
         <h3 className="text-lg font-semibold text-university-secondary-700 mb-2">{title}</h3>

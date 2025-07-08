@@ -110,7 +110,7 @@ export function TestCard({ application }: Props) {
     if (isTestStarted) {
       return (
         <Link to="/admission/exam">
-          <AnimatedButton className="w-fit">Davom ettirish</AnimatedButton>
+          <AnimatedButton className="w-fit">Продолжить</AnimatedButton>
         </Link>
       )
     }

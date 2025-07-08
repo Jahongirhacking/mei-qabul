@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
 import { useCancelApplication, useGetApplications } from '@/api/services/application.service'
-import { useGetContracts } from '@/api/services/contract.service'
 import { useAuthStore } from '@/app/store/authStore'
 import AnimatedButton from '@/components/AnimatedButton'
 import { Loader } from '@/components/Loader'
@@ -11,8 +10,9 @@ import { ApplicationOnlineCard } from '@/components/cards/ApplicationOnlineCard'
 import { ApplicationRecommendationCard } from '@/components/cards/ApplicationRecommendationCard'
 import { ApplicationResultCard } from '@/components/cards/ApplicationResultCard'
 import { TestCard } from '@/components/cards/TestCard'
+import { UserInfoCard } from '@/components/cards/UserInfoCard'
 import { ApplicationStatusEnum, ExamTypeEnum } from '@/types/enum'
-import { Modal } from 'antd'
+import { Flex, Modal, Tag } from 'antd'
 import { toast } from 'sonner'
 
 export default function ApplicationsPage() {
@@ -25,9 +25,9 @@ export default function ApplicationsPage() {
     isFetching: applicationsLoading,
     refetch: refetchApplications
   } = useGetApplications()
-  const { data: contracts = [], isLoading: contractsLoading } = useGetContracts()
+  // const { data: contracts = [], isLoading: contractsLoading } = useGetContracts()
 
-  const isCancelVisible = contracts.length === 0
+  // const isCancelVisible = contracts.length === 0
 
   const { mutate: cancelApplication, isPending: isCancelApplicationPending } = useCancelApplication(
     {
@@ -52,7 +52,7 @@ export default function ApplicationsPage() {
     })
   }
 
-  if (applicationsLoading || contractsLoading || isCancelApplicationPending) {
+  if (applicationsLoading || isCancelApplicationPending) {
     return (
       <div className="w-full flex justify-center items-center h-96">
         <Loader />
@@ -78,7 +78,7 @@ export default function ApplicationsPage() {
 
           <ApplicationResultCard
             application={application}
-            isCancelVisible={isCancelVisible}
+            // isCancelVisible={isCancelVisible}
             onApplicationCancel={onApplicationCancel}
           />
         </div>
@@ -91,7 +91,7 @@ export default function ApplicationsPage() {
     ) {
       return (
         <ApplicationCard
-          hideCancel={!isCancelVisible}
+          // hideCancel={!isCancelVisible}
           application={application}
           onApplicationCancel={onApplicationCancel}
         />
@@ -102,7 +102,7 @@ export default function ApplicationsPage() {
       return (
         <ApplicationResultCard
           application={application}
-          isCancelVisible={isCancelVisible}
+          // isCancelVisible={isCancelVisible}
           onApplicationCancel={onApplicationCancel}
         />
       )
@@ -112,7 +112,7 @@ export default function ApplicationsPage() {
       case ExamTypeEnum.OFFLINE:
         return (
           <ApplicationCard
-            hideCancel={!isCancelVisible}
+            // hideCancel={!isCancelVisible}
             application={application}
             onApplicationCancel={onApplicationCancel}
           />
@@ -123,7 +123,7 @@ export default function ApplicationsPage() {
             <TestCard application={application} />
 
             <ApplicationOnlineCard
-              hideCancel={!isCancelVisible}
+              // hideCancel={!isCancelVisible}
               application={application}
               onApplicationCancel={onApplicationCancel}
             />
@@ -132,7 +132,7 @@ export default function ApplicationsPage() {
       case ExamTypeEnum.RECOMMENDATION:
         return (
           <ApplicationRecommendationCard
-            hideCancel={!isCancelVisible}
+            // hideCancel={!isCancelVisible}
             application={application}
             onApplicationCancel={onApplicationCancel}
           />
@@ -140,7 +140,7 @@ export default function ApplicationsPage() {
       case ExamTypeEnum.INTERVIEW:
         return (
           <ApplicationInterviewCard
-            hideCancel={!isCancelVisible}
+            // hideCancel={!isCancelVisible}
             application={application}
             onApplicationCancel={onApplicationCancel}
           />
@@ -150,10 +150,38 @@ export default function ApplicationsPage() {
     }
   }
 
+
+  const items = [
+    {
+      label: "Qabul turi:",
+      value: `${application?.admissionType || ""}`
+    },
+    {
+      label: "Форма обучения:",
+      value: `${application?.degree || ""}`
+    },
+    {
+      label: "Направление обучения:",
+      value: `${application?.speciality || ""}`
+    },
+    {
+      label: "Код направления обучения:",
+      value: `${application?.specialityCode || ""}`
+    },
+    {
+      label: "Предметы:",
+      value: `${application?.subjects?.join(', ') || ""}`
+    }
+  ]
+
   return (
     <div className="flex-1">
-      <h1 className="text-2xl font-bold mb-5">Mening arizalarim</h1>
+      <h1 className="text-2xl font-bold mb-5">Мои заявления</h1>
 
+      <UserInfoCard
+        title={<Flex align='center' gap={12} wrap>Статус заявления: <Tag color='success'>{application?.status}</Tag></Flex>}
+        items={items}
+      />
       <div>{renderContent()}</div>
     </div>
   )

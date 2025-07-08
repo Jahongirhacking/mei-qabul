@@ -7,25 +7,25 @@ import { LogOut, MenuIcon, XIcon } from "lucide-react"
 
 const menu = [
   {
-    name: "Asosiy sahifa",
+    name: "Главная страница",
     icon: "🏠",
     link: "/user"
   },
   {
-    name: "Mening arizam",
+    name: "Мои заявления",
     icon: "📝",
     link: "/user/applications"
   },
-  {
-    name: "Mening shartnomam",
-    icon: "📋",
-    link: "/user/contracts"
-  },
-  {
-    name: "Til sertifikatlari",
-    icon: "📜",
-    link: "/user/certificates"
-  }
+  // {
+  //   name: "Mening shartnomam",
+  //   icon: "📋",
+  //   link: "/user/contracts"
+  // },
+  // {
+  //   name: "Til sertifikatlari",
+  //   icon: "📜",
+  //   link: "/user/certificates"
+  // }
 ]
 
 export function ProfileSidebar() {
@@ -70,7 +70,7 @@ export function ProfileSidebar() {
           )}
         >
           <LogOut size={18} />
-          Chiqish
+          Выход
         </button>
       </aside>
 
@@ -99,7 +99,7 @@ export function ProfileSidebar() {
               onClick={logout}
               className="py-2 font-medium text-red-600 hover:text-red-400 cursor-pointer"
             >
-              Chiqish
+              Выход
             </li>
           </ul>
         </div>

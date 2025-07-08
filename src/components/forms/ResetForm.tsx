@@ -109,7 +109,7 @@ export const ResetForm = () => {
         )}
 
         <AnimatedButton type="submit" className="w-full mt-6">
-          Tasdiqlash
+          Подтверждение
         </AnimatedButton>
       </div>
     </Form>

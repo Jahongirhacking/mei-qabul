@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { useGetEduLevelsList } from '@/api/services/common.service'
-import { useCreateExam } from '@/api/services/exam.service'
 import {
   ApplyDto,
   useApply,
@@ -52,7 +51,7 @@ export function AdmissionStep4() {
   const { t } = useTranslation()
   const [form] = Form.useForm<FormValues>()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { eduLevelId, specialtyId, examType, degreeId, languageId, admissionTypeId } =
     useAdmissionStore(useShallow((state) => state.stepState))
@@ -91,11 +90,11 @@ export function AdmissionStep4() {
   //   admissionTypeId
   // })
 
-  const { create: createExam, isCreating: isCreatingExam } = useCreateExam({
-    onSuccess: () => {
-      navigate('/admission/exam')
-    }
-  })
+  // const { create: createExam, isCreating: isCreatingExam } = useCreateExam({
+  //   onSuccess: () => {
+  //     navigate('/admission/exam')
+  //   }
+  // })
 
   const isApplyDisabled = !degreeId || !specialtyId
   const isExamTypeHidden = true
@@ -305,20 +304,19 @@ export function AdmissionStep4() {
               </div>
             </div>
 
-            <h2 className="text-3xl font-bold mb-4 text-teal-500">Tabriklaymiz! 🎉</h2>
+            <h2 className="text-3xl font-bold mb-4 text-teal-500">Поздравляем! 🎉</h2>
 
             <div className="text-gray-600 text-lg mb-6">
-              <p className="font-semibold mb-6">Arizangiz qabul qilindi.</p>
+              <p className="font-semibold mb-6">Ваше заявление принято.</p>
               <p className="text-balance">
-                Qayd varaqangizni yuklab olish uchun{' '}
+                Чтобы скачать ваш регистрационный лист, выберите раздел {' '}
                 <strong>
-                  <i>Mening kabinetim</i>
-                </strong>{' '}
-                tugmasini tanlang.
+                  <i>{t('user.profile')}</i>
+                </strong>
               </p>
             </div>
 
-            <div>
+            {/* <div>
               {examType === ExamTypeEnum.ONLINE && (
                 <p className="text-gray-600 text-lg mb-6">
                   <i>Online</i> testni boshlash uchun{' '}
@@ -328,14 +326,14 @@ export function AdmissionStep4() {
                   tugmasini tanlang. Testni topshirish uchun <b>120</b> daqida vaqtingiz bor.
                 </p>
               )}
-            </div>
+            </div> */}
 
             <div className="flex justify-center gap-12 mt-12">
-              {examType === ExamTypeEnum.ONLINE && !isTransferAdmissionType && (
+              {/* {examType === ExamTypeEnum.ONLINE && !isTransferAdmissionType && (
                 <AnimatedButton loading={isCreatingExam} onClick={() => createExam()}>
                   {t('action.startTest')}
                 </AnimatedButton>
-              )}
+              )} */}
               <Link to="/user">
                 <AnimatedButton>{t('user.profile')}</AnimatedButton>
               </Link>

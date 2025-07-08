@@ -64,18 +64,18 @@ export const AdmissionTracking = () => {
 
   const getExamTitle = () => {
     if (isHaveContract) {
-      return 'Imtihon topshirildi'
+      return 'Экзамен сдан'
     }
 
     if (application && application.score) {
-      return 'Imtihon topshirildi'
+      return 'Экзамен сдан'
     }
 
     if (isTestStarted && !isTestEnded) {
-      return 'Imtihon topshirilmoqda'
+      return 'Экзамен сдаётся'
     }
 
-    return 'Imtihon topshirilmagan'
+    return 'Экзамен не сдан'
   }
 
   const examDescription = () => {
@@ -91,7 +91,7 @@ export const AdmissionTracking = () => {
           Imtihon vaqti:{' '}
           {application?.examLocation?.date
             ? `${application?.examLocation?.date} ${application?.examLocation?.time}`
-            : 'belgilanmagan'}
+            : 'Не указано'}
         </span>
       )
     }
@@ -99,7 +99,7 @@ export const AdmissionTracking = () => {
     if (isTestStarted && !isTestEnded) {
       return (
         <Link to="/admission/exam">
-          <StepBtn>Davom ettirish</StepBtn>
+          <StepBtn>Продолжить</StepBtn>
         </Link>
       )
     }
@@ -143,7 +143,7 @@ export const AdmissionTracking = () => {
             current={getCurrentStep()}
             items={[
               {
-                title: <Title>{isApplied ? 'Ariza topshirildi' : 'Ariza mavjud emas'}</Title>,
+                title: <Title>{isApplied ? 'Заявление подано' : 'Заявление отсутствует'}</Title>,
                 description: isApplied ? (
                   <>
                     {user?.applicantRegistrationForm && (
@@ -160,7 +160,7 @@ export const AdmissionTracking = () => {
                   </>
                 ) : (
                   <Link to="/admission">
-                    <StepBtn>Ariza topshirish</StepBtn>
+                    <StepBtn>Подать заявление</StepBtn>
                   </Link>
                 )
               },
@@ -174,20 +174,20 @@ export const AdmissionTracking = () => {
                 description: examDescription()
               },
 
-              {
-                title: (
-                  <Title>
-                    {isHaveContract ? 'Shartnoma shakllangan' : 'Shartnoma mavjud emas'}
-                  </Title>
-                ),
-                description: isHaveContract ? (
-                  <a target="_blank" href={user.contractUrl} download="Shartnoma.pdf">
-                    <StepBtn>
-                      <Download size={18} /> Shartnoma
-                    </StepBtn>
-                  </a>
-                ) : null
-              }
+              // {
+              //   title: (
+              //     <Title>
+              //       {isHaveContract ? 'Shartnoma shakllangan' : 'Shartnoma mavjud emas'}
+              //     </Title>
+              //   ),
+              //   description: isHaveContract ? (
+              //     <a target="_blank" href={user.contractUrl} download="Shartnoma.pdf">
+              //       <StepBtn>
+              //         <Download size={18} /> Shartnoma
+              //       </StepBtn>
+              //     </a>
+              //   ) : null
+              // }
             ]}
           />
         </div>

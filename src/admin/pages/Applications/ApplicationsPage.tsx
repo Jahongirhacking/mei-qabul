@@ -770,7 +770,7 @@ export default function ApplicationsPage() {
                 loading={pendingApproveApplication}
                 onClick={handleOk}
               >
-                Tasdiqlash
+                Подтверждение
               </Button>,
               <Button key="link" type="primary" danger onClick={onCreate}>
                 Arizani bekor qilish

@@ -28,14 +28,14 @@ export const Navbar = () => {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4 px-2 md:px-12",
-        isScrolled ? "bg-university-secondary-500 backdrop-blur-md shadow-md" : "bg-transparent"
+        isScrolled ? "bg-university-secondary-500 backdrop-blur-md shadow-md home-header" : "bg-transparent"
       )}
     >
       <div className="container mx-auto">
         <div>
           <div className="flex items-center justify-between">
             <Link to="/">
-              <img src="/logo.svg" alt="logo" className="w-32" />
+              <img src="/logo.png" alt="logo" className="w-20" />
             </Link>
 
             <div className="flex items-center justify-end gap-8">
@@ -44,7 +44,7 @@ export const Navbar = () => {
                   <div className="flex gap-2">
                     {isApplied() || (
                       <Link to="/admission" className="hidden md:block">
-                        <AnimatedButton>ARIZA TOPSHIRISH</AnimatedButton>
+                        <AnimatedButton>Подать заявление</AnimatedButton>
                       </Link>
                     )}
 
@@ -58,11 +58,11 @@ export const Navbar = () => {
                 ) : (
                   <div className="flex gap-2">
                     <Link to="/admission" className="hidden md:block">
-                      <AnimatedButton className="max-md:p-2">ARIZA TOPSHIRISH</AnimatedButton>
+                      <AnimatedButton className="max-md:p-2">Подать заявление</AnimatedButton>
                     </Link>
 
                     <Link to="/login">
-                      <AnimatedButton>Kirish</AnimatedButton>
+                      <AnimatedButton>Войти</AnimatedButton>
                     </Link>
                   </div>
                 )}

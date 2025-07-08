@@ -148,7 +148,7 @@ export const LoginForm = () => {
           ))}
 
         <AnimatedButton type="submit" className="w-full mt-6">
-          Tasdiqlash
+          Подтверждение
         </AnimatedButton>
       </div>
     </Form>

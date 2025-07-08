@@ -21,13 +21,13 @@ export const SignUpForm = () => {
     try {
       const response = await signUp({ ...data, phoneNumber })
 
-      toast.success("Ro‘yxatdan o‘tish muvaffaqiyatli amalga oshirildi!")
+      toast.success("Регистрация успешно завершена")
       setToken(response.data.token)
       setUser({ phoneNumber: data.phoneNumber } as User)
 
       navigate("/admission")
     } catch {
-      toast.error("Ro‘yxatdan o‘tishda xatolik yuz berdi!")
+      toast.error("Произошла ошибка при регистрации!")
     }
   }
 
@@ -35,15 +35,15 @@ export const SignUpForm = () => {
     <div className="mt-24 md:mt-10">
       <Form onFinish={onFinish} layout="vertical" autoComplete="off">
         <div className="w-fit p-8 rounded-3xl bg-white min-w-96">
-          <h1 className="text-university-secondary-700 text-2xl mb-4 font-bold">Ro‘yxatdan o‘tish</h1>
+          <h1 className="text-university-secondary-700 text-2xl mb-4 font-bold">Регистрация</h1>
 
-          <Form.Item name="password" label="Yangi parol" rules={[{ required: true }]}>
+          <Form.Item name="password" label="Новый пароль" rules={[{ required: true }]}>
             <TextInput />
           </Form.Item>
 
           <Form.Item
             name="passwordConfirm"
-            label="Parolni takrorlang"
+            label="Повторите пароль"
             dependencies={["password"]}
             rules={[
               {
@@ -54,7 +54,7 @@ export const SignUpForm = () => {
                   if (!value || getFieldValue("password") === value) {
                     return Promise.resolve()
                   }
-                  return Promise.reject(new Error("Parollar bir xil emas!"))
+                  return Promise.reject(new Error("Пароли не совпадают"))
                 }
               })
             ]}
@@ -63,7 +63,7 @@ export const SignUpForm = () => {
           </Form.Item>
 
           <AnimatedButton type="submit" className="w-full">
-            Tasdiqlash
+            Подтверждение
           </AnimatedButton>
         </div>
       </Form>

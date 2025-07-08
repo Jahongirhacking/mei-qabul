@@ -32,7 +32,7 @@ export const HeroSection = () => {
   }, [])
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-university-secondary rounded-b-[64px]">
+    <section className="relative min-h-screen overflow-hidden bg-university-secondary rounded-b-[64px] hero-section">
       {/* Decorative elements */}
       <div className="absolute left-0 top-1/4 w-64 h-64 rounded-full bg-university-primary/20 blur-3xl"></div>
       <div className="absolute right-1/4 bottom-1/3 w-80 h-80 rounded-full bg-university-primary/10 blur-3xl"></div>

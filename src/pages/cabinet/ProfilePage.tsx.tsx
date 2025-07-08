@@ -41,10 +41,10 @@ export default function ProfilePage() {
       label: t("label.applicantRegistrationForm"),
       value: <DownloadLink url={user?.applicantRegistrationForm} />
     },
-    {
-      label: "Talaba shartnomasi",
-      value: <DownloadLink url={user?.contractUrl} />
-    }
+    // {
+    //   label: "Talaba shartnomasi",
+    //   value: <DownloadLink url={user?.contractUrl} />
+    // }
   ]
 
   return (

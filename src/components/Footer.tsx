@@ -1,42 +1,42 @@
 import { useTranslation } from "react-i18next"
 
-import { Facebook, Globe, Instagram, Mail, MapPin, Phone, Send, Youtube } from "lucide-react"
+import { Globe, Mail, MapPin, Phone } from "lucide-react"
 
-const socials = [
-  {
-    icon: <Facebook size={20} />,
-    title: "Facebook",
-    link: "https://www.facebook.com/share/Dqygmjco6vYoU5EN/?mibextid=qi2Omg"
-  },
-  {
-    icon: <Instagram size={20} />,
-    title: "Instagram",
-    link: "https://www.instagram.com/kuaf_uz?igsh=MWFqMGdnN3pudGZjNQ=="
-  },
-  {
-    title: "YouTube",
-    link: "https://youtube.com/@kuafuz?si=OwPIhG7Rp7SnrC2S",
-    icon: <Youtube size={20} />
-  },
-  {
-    title: "Telegram",
-    link: "https://t.me/kuaf_edu",
-    icon: <Send size={20} />
-  }
-]
+// const socials = [
+//   {
+//     icon: <Facebook size={20} />,
+//     title: "Facebook",
+//     link: "https://www.facebook.com/share/Dqygmjco6vYoU5EN/?mibextid=qi2Omg"
+//   },
+//   {
+//     icon: <Instagram size={20} />,
+//     title: "Instagram",
+//     link: "https://www.instagram.com/kuaf_uz?igsh=MWFqMGdnN3pudGZjNQ=="
+//   },
+//   {
+//     title: "YouTube",
+//     link: "https://youtube.com/@kuafuz?si=OwPIhG7Rp7SnrC2S",
+//     icon: <Youtube size={20} />
+//   },
+//   {
+//     title: "Telegram",
+//     link: "https://t.me/kuaf_edu",
+//     icon: <Send size={20} />
+//   }
+// ]
 
 export const Footer = () => {
   const { t } = useTranslation()
   return (
     <footer className="bg-university-secondary text-white">
       <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8">
+        <div className="flex justify-between flex-wrap align-center gap-8">
           <section>
-            <img className="w-40" src="/logo.svg" alt="logo" />
+            <img className="w-40" src="/logo.png" alt="logo" />
           </section>
 
           <section className="flex flex-col md:flex-row gap-24">
-            <div>
+            {/* <div>
               <h3 className="text-lg font-semibold mb-6">{t("footer.socials")}</h3>
               <ul className="space-y-4">
                 {socials.map((item, index) => (
@@ -48,7 +48,7 @@ export const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
 
             <div>
               <h3 className="text-lg font-semibold mb-6">{t("footer.contact")}</h3>

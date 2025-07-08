@@ -86,7 +86,7 @@ export default function LoginPage() {
                   htmlType="submit"
                   size="large"
                 >
-                  Kirish
+                  Войти
                 </Button>
               </div>
             </Form>

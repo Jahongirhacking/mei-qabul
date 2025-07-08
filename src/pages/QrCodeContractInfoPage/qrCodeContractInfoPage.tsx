@@ -43,7 +43,7 @@ export default function QrCodeContractInfoPage() {
     <div className="qrcode-container">
       <div className="qrcode-title-container">
         <Link to="/">
-          <img src="/logo.svg" alt="logo" className="w-32" />
+          <img src="/logo.png" alt="logo" className="w-20" />
         </Link>
         <h2>{data?.university}</h2>
       </div>

@@ -59,7 +59,7 @@ export default function TestsPage() {
     const isConfirmed = await confirm({
       title: "O'chirishni tasdiqlaysizmi",
       content: '',
-      okText: 'Tasdiqlash',
+      okText: 'Подтверждение',
       cancelText: 'Bekor qilish',
       okType: 'danger'
     })

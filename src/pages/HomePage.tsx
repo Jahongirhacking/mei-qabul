@@ -7,9 +7,8 @@ import HeroSection from "@/components/HeroSection"
 import Navbar from "@/components/Navbar"
 import { SpecialtiesSection } from "@/components/SpecialtiesSection"
 import StepCard from "@/components/StepCard"
-import VideoSection from "@/components/VideoSection"
-import { useSearchParams } from "react-router-dom"
 import { useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 
 export default function HomePage() {
   const { t } = useTranslation()
@@ -23,7 +22,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col home-page">
       <Navbar />
 
       <HeroSection />
@@ -44,11 +43,11 @@ export default function HomePage() {
             <p className="text-white max-w-2xl mx-auto mt-4">{t("applicationSteps.description")}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[0, 1, 2, 3].map((stepNumber, index) => (
+          <div className="flex align-center justify-center gap-10 flex-wrap">
+            {[0, 1, 3].map((stepNumber, index) => (
               <StepCard
                 key={stepNumber}
-                number={stepNumber}
+                number={index + 1}
                 title={t(`applicationSteps.steps.${stepNumber}.title`)}
                 description={t(`applicationSteps.steps.${stepNumber}.description`)}
                 delay={index * 100}
@@ -56,11 +55,11 @@ export default function HomePage() {
             ))}
           </div>
 
-          <p className="text-white text-center text-xl my-8">{t("videoSection.title")}</p>
+          {/* <p className="text-white text-center text-xl my-8">{t("videoSection.title")}</p> */}
 
-          <div className="mt-16">
+          {/* <div className="mt-16">
             <VideoSection />
-          </div>
+          </div> */}
         </div>
       </section>
 

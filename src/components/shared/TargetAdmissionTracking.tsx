@@ -6,7 +6,6 @@ import { useAuthStore } from '@/app/store/authStore'
 import AnimatedButton, { AnimatedButtonProps } from '@/components/AnimatedButton'
 import { ApplicationStatusEnum } from '@/types/enum'
 import { Steps } from 'antd'
-import { Download } from 'lucide-react'
 
 export const TargetAdmissionTracking = () => {
   const user = useAuthStore((state) => state.user)
@@ -22,16 +21,16 @@ export const TargetAdmissionTracking = () => {
 
   const getExamTitle = () => {
     if (!application) {
-      return 'Ariza topshirilmagan'
+      return 'Заявление не подано'
     }
 
     switch (application.status) {
       case ApplicationStatusEnum.NEW:
-        return "Ariza ko'rib chiqilmoqda"
+        return "Заявление рассматривается"
       case ApplicationStatusEnum.APPROVED:
-        return 'Ariza tasdiqlangan'
+        return 'Заявление одобрено'
       case ApplicationStatusEnum.CANCELLED:
-        return 'Ariza bekor qilindi'
+        return 'Заявление отменено'
       default:
         return ''
     }
@@ -57,30 +56,30 @@ export const TargetAdmissionTracking = () => {
             current={getCurrentStep()}
             items={[
               {
-                title: <Title>{isApplied ? 'Ariza topshirildi' : 'Ariza mavjud emas'}</Title>,
+                title: <Title>{isApplied ? 'Заявление подано' : 'Заявление отсутствует'}</Title>,
                 description: isApplied || (
                   <Link to="/admission">
-                    <StepBtn>Ariza topshirish</StepBtn>
+                    <StepBtn>Подать заявление</StepBtn>
                   </Link>
                 )
               },
               {
                 title: <Title>{getExamTitle()}</Title>
               },
-              {
-                title: (
-                  <Title>
-                    {isHaveContract ? 'Shartnoma shakllangan' : 'Shartnoma mavjud emas'}
-                  </Title>
-                ),
-                description: isHaveContract ? (
-                  <a target="_blank" href={user.contractUrl} download="Shartnoma.pdf">
-                    <StepBtn>
-                      <Download size={18} /> Shartnoma
-                    </StepBtn>
-                  </a>
-                ) : null
-              }
+              // {
+              //   title: (
+              //     <Title>
+              //       {isHaveContract ? 'Shartnoma shakllangan' : 'Shartnoma mavjud emas'}
+              //     </Title>
+              //   ),
+              //   description: isHaveContract ? (
+              //     <a target="_blank" href={user.contractUrl} download="Shartnoma.pdf">
+              //       <StepBtn>
+              //         <Download size={18} /> Shartnoma
+              //       </StepBtn>
+              //     </a>
+              //   ) : null
+              // }
             ]}
           />
         </div>

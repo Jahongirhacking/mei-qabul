@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -16,9 +16,9 @@ export const InfoItem: React.FC<InfoItemProps> = ({ label, value }) => (
 )
 
 interface UserInfoCardProps {
-  items: InfoItemProps[]
-  title?: string
-  className?: string
+  items: InfoItemProps[];
+  title?: string | ReactElement;
+  className?: string;
 }
 
 export const UserInfoCard: React.FC<UserInfoCardProps> = ({ items, title, className }) => {

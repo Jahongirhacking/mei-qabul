@@ -19,7 +19,7 @@ const Container = ({ children, header, contentClassName }: Props) => {
           <div className="flex items-center justify-between">
             <div>
               <Link to="/">
-                <img src={logoDarkPath} alt="logo" className="w-32" />
+                <img src={logoDarkPath} alt="logo" className="w-20" />
               </Link>
             </div>
 

@@ -128,6 +128,7 @@ export function BachelorForm() {
             </Form.Item>
 
             <Form.Item
+              required
               name="schoolCertificate"
               label={"Диплом об окончании учебного заведения"}
             >
@@ -147,7 +148,7 @@ export function BachelorForm() {
                   }
                 }}
               >
-                <Button icon={<UploadCloud />}> Hujjat yuklash</Button>
+                <Button icon={<UploadCloud />}> Загрузить документ</Button>
               </Upload>
               {
                 schoolCertificate && (
