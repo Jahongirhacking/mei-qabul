@@ -2,9 +2,9 @@ pipeline {
     agent any
     
     stages {
-        stage('qabul-kuaf-front update') {
+        stage('qabul-mpei-front update') {
             steps {
-                sh 'ansible-playbook /var/lib/jenkins/ansible/qabul_kuaf-front.yml -l prod_9_46'
+                sh 'ansible-playbook /var/lib/jenkins/ansible/qabul_mpei-front.yaml -l prod_9_46'
             }
         }
     }
