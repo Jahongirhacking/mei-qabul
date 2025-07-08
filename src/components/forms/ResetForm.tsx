@@ -27,11 +27,11 @@ export const ResetForm = () => {
     if (savedCode) {
       resetPassword({ phoneNumber: phone, code: savedCode, password })
         .then(() => {
-          toast.success("Parol muvaffaqiyatli o‘zgartirildi!")
+          toast.success("Пароль успешно изменён!")
           navigate("/login")
         })
         .catch(() => {
-          toast.error("Parolni o‘zgartirishda xatolik yuz berdi!")
+          toast.error("Произошла ошибка при изменении пароля!")
         })
     } else {
       checkAccessCode({ phoneNumber: phone, code })
@@ -39,7 +39,7 @@ export const ResetForm = () => {
           setSavedCode(code)
         })
         .catch(() => {
-          toast.error("Kod xato kiritildi!")
+          toast.error("Код введён неверно!")
         })
     }
   }
@@ -65,7 +65,7 @@ export const ResetForm = () => {
       <div className="w-fit p-8 rounded-3xl bg-white max-w-96">
         <h1 className="text-university-secondary-700 text-xl mb-4 font-bold text-center">{t("universityName")}</h1>
         <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-2025"!</p>
-        <p className="mb-6 text-gray-500 text-center">{savedCode ? "Yangi parolni kiriting" : "Parolni tiklash uchun telefon raqamingizga SMS kod yuborildi"}</p>
+        <p className="mb-6 text-gray-500 text-center">{savedCode ? "Новый пароль" : "На ваш номер телефона отправлен SMS-код для восстановления пароля"}</p>
 
         <PhoneFormItem name="phoneNumber" label={t("label.phoneNumber")} />
 
@@ -77,7 +77,7 @@ export const ResetForm = () => {
 
             <Form.Item
               name="passwordConfirm"
-              label="Parolni takrorlang"
+              label="Повторите пароль"
               dependencies={["password"]}
               rules={[
                 {
@@ -98,12 +98,12 @@ export const ResetForm = () => {
           </div>
         ) : (
           <div>
-            <Form.Item name="code" label="Kod">
+            <Form.Item name="code" label="Код">
               <TextInput />
             </Form.Item>
 
             <div>
-              <p className="text-sm text-end text-university-secondary-500 cursor-pointer">Yangi kodni so‘rashingiz mumkin {timer} s</p>
+              <p className="text-sm text-end text-university-secondary-500 cursor-pointer">Вы можете запросить новый код {timer}c</p>
             </div>
           </div>
         )}

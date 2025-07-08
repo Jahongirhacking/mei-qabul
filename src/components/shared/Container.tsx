@@ -25,7 +25,7 @@ const Container = ({ children, header, contentClassName }: Props) => {
 
             {header}
 
-            <Link to="/">
+            <Link to="/user">
               <button className="text-university-secondary rounded-full shadow p-1 hover:bg-university-secondary hover:text-white">
                 <XIcon size={20} />
               </button>

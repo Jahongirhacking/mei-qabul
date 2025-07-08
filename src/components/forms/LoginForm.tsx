@@ -10,7 +10,7 @@ import AnimatedButton from "@/components/AnimatedButton"
 import { PhoneFormItem, clearMask } from "@/components/formItems/PhoneFormItem"
 import { TextInput } from "@/components/inputs/TextInput"
 import { BaseResponse } from "@/types/IRequest"
-import { Form } from "antd"
+import { Checkbox, Flex, Form, Input } from "antd"
 import { AxiosError } from "axios"
 import { toast } from "sonner"
 
@@ -76,18 +76,18 @@ export const LoginForm = () => {
 
           const path = isApplied ? "/user/applications" : "/admission"
 
-          toast.success("Muvaffaqiyatli kirdingiz!")
+          toast.success("Вы успешно вошли!")
 
           navigate(path)
         })
         .catch(() => {
-          toast.error("Parol xato kiritildi!")
+          toast.error("Пароль введён неверно!")
         })
     } else {
       checkAccessCode({ phoneNumber: phone, code })
         .then(() => navigate(`/sign-up?phoneNumber=${phone}`))
         .catch(() => {
-          toast.error("Kod xato kiritildi!")
+          toast.error("Код введён неверно!")
         })
     }
   }
@@ -115,13 +115,13 @@ export const LoginForm = () => {
         <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-2025"!</p>
         <p className="mb-6 text-gray-500 text-center">Пожалуйста, войдите в систему или зарегистрируйтесь.</p>
 
-        <PhoneFormItem name="phoneNumber" disabled={isAuthorizedBefore !== null} label="Номер телефона" />
+        <PhoneFormItem name="phoneNumber" label="Номер телефона" />
 
         {isAuthorizedBefore !== null &&
           (isAuthorizedBefore ? (
             <div>
               <Form.Item name="password" label="Пароль">
-                <TextInput />
+                <Input.Password />
               </Form.Item>
               <div className="flex justify-end">
                 <button onClick={forgotPassword} type="button" className="text-sm text-end text-university-secondary-500 hover:bg-blue-200 rounded-sm px-1">
@@ -131,7 +131,7 @@ export const LoginForm = () => {
             </div>
           ) : (
             <div>
-              <Form.Item name="code" label="Kod">
+              <Form.Item name="code" label="Код">
                 <TextInput />
               </Form.Item>
 
@@ -146,6 +146,12 @@ export const LoginForm = () => {
               )}
             </div>
           ))}
+
+
+        <Flex gap={8}>
+          <Checkbox checked={!!isAuthorizedBefore} onChange={e => setIsAuthorizedBefore(e.target.checked || null)} />
+          <span>У меня есть пароль</span>
+        </Flex>
 
         <AnimatedButton type="submit" className="w-full mt-6">
           Подтверждение
