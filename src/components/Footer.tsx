@@ -28,7 +28,7 @@ import { Globe, Mail, MapPin, Phone } from "lucide-react"
 export const Footer = () => {
   const { t } = useTranslation()
   return (
-    <footer className="bg-university-secondary text-white">
+    <footer className="bg-university-secondary text-white home-footer">
       <div className="container mx-auto px-6 py-12">
         <div className="flex justify-between flex-wrap align-center gap-8">
           <section>

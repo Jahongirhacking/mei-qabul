@@ -79,7 +79,7 @@ export default function CancellationRequestsPage() {
             onChange={setAdmissionTypeId}
             value={admissionTypeId}
             style={{ width: '200px' }}
-            placeholder="Qabul turi"
+            placeholder="Тип приёма"
             options={admissionTypeList?.map((item) => ({ label: item.name, value: item.id }))}
           />
           <Button onClick={handleApprove} loading={isCreating && checkBtn === 1} type="primary">

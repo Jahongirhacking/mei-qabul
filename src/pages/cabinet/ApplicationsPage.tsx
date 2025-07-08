@@ -153,7 +153,7 @@ export default function ApplicationsPage() {
 
   const items = [
     {
-      label: "Qabul turi:",
+      label: "Тип приёма:",
       value: `${application?.admissionType || ""}`
     },
     {

@@ -50,7 +50,7 @@ export const Navbar = () => {
 
                     <Link to="/user">
                       <AnimatedButton>
-                        <span className="hidden md:inline"> Mening kabinetim</span>
+                        <span className="hidden md:inline"> Личный кабинет</span>
                         <UserCircle size={20} />
                       </AnimatedButton>
                     </Link>

@@ -109,23 +109,23 @@ export const LoginForm = () => {
   }
 
   return (
-    <Form form={form} onFinish={onFinish} layout="vertical">
+    <Form form={form} onFinish={onFinish} layout="vertical" className="login-form">
       <div className="w-fit p-8 rounded-3xl bg-white max-w-96">
         <h1 className="text-university-secondary-700 text-xl mb-4 font-bold text-center">{t("universityName")}</h1>
-        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">"Qabul-2025" platformasiga xush kelibsiz!</p>
-        <p className="mb-6 text-gray-500 text-center">Iltimos, tizimga kiring yoki ro‘yxatdan o‘ting.</p>
+        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-2025"!</p>
+        <p className="mb-6 text-gray-500 text-center">Пожалуйста, войдите в систему или зарегистрируйтесь.</p>
 
-        <PhoneFormItem name="phoneNumber" disabled={isAuthorizedBefore !== null} label="Telefon raqam" />
+        <PhoneFormItem name="phoneNumber" disabled={isAuthorizedBefore !== null} label="Номер телефона" />
 
         {isAuthorizedBefore !== null &&
           (isAuthorizedBefore ? (
             <div>
-              <Form.Item name="password" label="Parol">
+              <Form.Item name="password" label="Пароль">
                 <TextInput />
               </Form.Item>
               <div className="flex justify-end">
                 <button onClick={forgotPassword} type="button" className="text-sm text-end text-university-secondary-500 hover:bg-blue-200 rounded-sm px-1">
-                  Parolni unutdingizmi?
+                  Забыли пароль?
                 </button>
               </div>
             </div>
@@ -138,9 +138,9 @@ export const LoginForm = () => {
               {isCodeSent && (
                 <div>
                   {timer > 0 ? (
-                    <p className="text-sm text-end text-university-secondary-500 cursor-pointer">Yangi kodni so‘rashingiz mumkin {timer} s</p>
+                    <p className="text-sm text-end text-university-secondary-500 cursor-pointer">Вы можете запросить новый код {timer}c</p>
                   ) : (
-                    <p className="text-sm text-end text-university-secondary-500 cursor-pointer">Kodni qayta yuborish</p>
+                    <p className="text-sm text-end text-university-secondary-500 cursor-pointer">Отправить код повторно</p>
                   )}
                 </div>
               )}

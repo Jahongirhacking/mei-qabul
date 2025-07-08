@@ -64,7 +64,7 @@ export const ResetForm = () => {
     <Form initialValues={initialValues} onFinish={onFinish} layout="vertical">
       <div className="w-fit p-8 rounded-3xl bg-white max-w-96">
         <h1 className="text-university-secondary-700 text-xl mb-4 font-bold text-center">{t("universityName")}</h1>
-        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">"Qabul-2025" platformasiga xush kelibsiz!</p>
+        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-2025"!</p>
         <p className="mb-6 text-gray-500 text-center">{savedCode ? "Yangi parolni kiriting" : "Parolni tiklash uchun telefon raqamingizga SMS kod yuborildi"}</p>
 
         <PhoneFormItem name="phoneNumber" label={t("label.phoneNumber")} />

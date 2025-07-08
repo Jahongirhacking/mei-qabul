@@ -76,7 +76,7 @@ export function ProfileSidebar() {
 
       {/* Mobile Menu Button */}
       <div className="flex justify-between md:hidden">
-        <h3 className="text-xl font-semibold text-teal-700">Mening kabinetim</h3>
+        <h3 className="text-xl font-semibold text-teal-700">Личный кабинет</h3>
         <button onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
           {isMenuOpen ? <XIcon size={24} /> : <MenuIcon size={24} />}
         </button>
