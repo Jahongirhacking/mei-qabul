@@ -1,0 +1,15 @@
+import { AxiosClient } from '@/admin/api/http/AxiosClient'
+import { HttpInterceptor } from '@/admin/api/http/HttpInterceptor'
+import type { CreateAxiosDefaults } from 'axios'
+
+export const HOST = 'https://qabul.nextedu.uz/api'
+
+const options: CreateAxiosDefaults = {
+  baseURL: HOST,
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  timeout: 30_000 // default 30s
+}
+
+export const httpService = new AxiosClient(options, new HttpInterceptor())

@@ -1,0 +1,10 @@
+.Loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - var(--header-h) - 2 * var(--main-p));
+}
+
+.Mini {
+  height: 300px;
+}

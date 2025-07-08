@@ -1,0 +1,104 @@
+:root {
+  --spinner-dot-color: #1149c3;
+  --card-box-shadow: 0 0 5px 1px rgb(58 56 56 / 25%);
+
+  /* sizes */
+  --header-h: 85px;
+  --main-p: 16px;
+}
+
+html[data-theme='light'] {
+  --color-aside-bg: #fff;
+  --header-bg: #fff;
+  --color-text-hover: #e6e2e2;
+  --color-main-bg: #eff1f5;
+  --sider-box-shadow: 0 8px 18px rgb(108 108 108 / 20%);
+  --logo-wrapper-bg: transparent;
+
+  /* token */
+  --color-text: #000;
+  --color-text-placeholder: rgb(0 0 0 / 25%);
+  --color-split: rgb(5 5 5 / 6%);
+  --color-icon: rgb(0 0 0 / 45%);
+  --color-bg-container: #fff;
+  --color-text-disabled: rgb(0 0 0 / 25%);
+  --color-text-quaternary: rgb(0 0 0 / 25%);
+  --color-text-description: rgb(0 0 0 / 45%);
+
+  /* table */
+  --table-bg-header: #fafafa;
+  --table-bg-footer: #fafafa;
+  --table-bg-row-hover: #fafafa;
+  --table-border-color: #f0f0f0;
+
+  /* table container with filter  */
+  --table-container-bg: #fff;
+  --filter-collapsed: #f1f5f9;
+
+  /* descriptions */
+  --desc-label-color: rgb(0 0 0 / 65%);
+
+  /* select */
+  --option-selected-color: rgb(0 0 0 / 88%);
+
+  /* colors */
+  --color-bg-card-green: #defdc8;
+  --color-bg-card-green-line: #97dd65;
+  --color-bg-card-blue: #deeefd;
+  --color-bg-card-blue-line: #7eb6ee;
+  --color-bg-card-teal: #ccfbf1;
+  --color-bg-card-teal-line: #4aebd5;
+  --color-bg-card-yellow: #fef3d7;
+  --color-bg-card-yellow-line: #f1d07c;
+  --color-bg-card-red: #ffc7c0;
+  --color-bg-card-red-line: #f78a7b;
+  --color-stroke: #e5e7eb;
+}
+
+html[data-theme='dark'] {
+  --color-aside-bg: #1e1e2d;
+  --header-bg: #1e1e2d;
+  --color-text-hover: #000;
+  --color-main-bg: #141420;
+  --sider-box-shadow: none;
+  --logo-wrapper-bg: #141420;
+
+  /* token */
+  --color-text: #fff;
+  --color-text-placeholder: rgb(186 186 186 / 25%);
+  --color-split: #404040;
+  --color-icon: #404040;
+  --color-bg-container: #1e1e2d;
+  --color-text-disabled: #6b7280;
+  --color-text-quaternary: #64748b;
+  --color-text-description: #ef4444;
+
+  /* table */
+  --table-bg-header: #141420;
+  --table-bg-footer: #030c1b;
+  --table-bg-row-hover: #141420;
+  --table-border-color: #404040;
+
+  /* table container with filter  */
+  --table-container-bg: #1e1e2d;
+  --filter-collapsed: #141420;
+
+  /* descriptions */
+  --desc-label-color: #cbd5e1;
+
+  /* select */
+  --option-selected-color: rgb(0 0 0 / 88%);
+
+  /* colors */
+  --color-bg-card-green: #447223;
+  --color-bg-card-green-line: #244b08;
+  --color-bg-card-blue: #1a4d7e;
+  --color-bg-card-blue-line: #062b50;
+  --color-bg-card-teal: #166d5a;
+  --color-bg-card-teal-line: #0a5046;
+  --color-bg-card-yellow: #8a6404;
+  --color-bg-card-yellow-line: #6d4f03;
+  --color-bg-card-red: #83201d;
+  --color-bg-card-red-line: #5a1107;
+  --color-stroke: #52525b;
+}

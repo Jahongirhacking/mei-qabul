@@ -1,0 +1,150 @@
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { useGetCertificates } from '@/api/services/certificate.service'
+import { useGetEduInstitutionTypesList } from '@/api/services/common.service'
+import {
+  BachelorAdmissionDto,
+  useCreateBachelorAdmission,
+  useGetOldEdu,
+  useUpdateBachelorAdmission
+} from '@/api/services/old-edu.service'
+import { GRADUATED_YEARS } from '@/app/config'
+import { useAdmissionStore } from '@/app/store/admissionStore'
+import AnimatedButton from '@/components/AnimatedButton'
+import { Loader } from '@/components/Loader'
+import { SelectInput } from '@/components/inputs/SelectInput'
+import { StepButton } from '@/components/shared/StepButton'
+import { UserCertificates } from '@/components/shared/UserCertiicates'
+import { useSaveStepState } from '@/hooks/useSaveStepState'
+import { Form } from 'antd'
+import { BookOpen, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useShallow } from 'zustand/react/shallow'
+
+export function BachelorForm() {
+  const { t } = useTranslation()
+  const setCurrentStep = useAdmissionStore((state) => state.setCurrentStep)
+  const admissionTypeId = useAdmissionStore((state) => state.stepState.admissionTypeId)
+  const [isHaveCertificate, setIsHaveCertificate] = useState(false)
+
+  const { oldEdu, isOldEduLoading } = useGetOldEdu<BachelorAdmissionDto>()
+
+  const { data: certificates = [], refetch } = useGetCertificates()
+  const { data: eduInstitutionTypes = [] } = useGetEduInstitutionTypesList()
+
+  const { saveStepState, saveStepStateLoading } = useSaveStepState({
+    onSuccess() {
+      setCurrentStep(3)
+    }
+  })
+
+  const { create, isCreating } = useCreateBachelorAdmission({
+    onSuccess() {
+      nextStep()
+    }
+  })
+
+  const { update, isUpdating } = useUpdateBachelorAdmission({
+    onSuccess() {
+      nextStep()
+    }
+  })
+
+  const changeStepState = useAdmissionStore((state) => state.changeStepState)
+  const { eduInstitutionTypeId } = useAdmissionStore(useShallow((state) => state.stepState))
+
+  const isCertificateRequired = isHaveCertificate && certificates.length === 0
+  const isNextDisabled = !eduInstitutionTypeId || isCertificateRequired
+  const isNextLoading = saveStepStateLoading || isCreating || isUpdating
+
+  const prevStep = () => {
+    setCurrentStep(1)
+  }
+
+  const nextStep = () => {
+    saveStepState()
+  }
+
+  const submit = ({ graduatedYear }: Pick<BachelorAdmissionDto, 'graduatedYear'>) => {
+    const dto: BachelorAdmissionDto = {
+      admissionTypeId: admissionTypeId!,
+      eduInstitutionTypeId: eduInstitutionTypeId!,
+      graduatedYear
+    }
+
+    if (oldEdu) {
+      update(dto)
+    } else {
+      create(dto)
+    }
+  }
+
+  useEffect(() => {
+    if (certificates.length) {
+      setIsHaveCertificate(true)
+    }
+  }, [certificates])
+
+  if (isOldEduLoading) {
+    return (
+      <div className="flex items-center justify-center h-72 mt-12">
+        <Loader />
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <Form initialValues={oldEdu} autoComplete="off" layout="vertical" onFinish={submit}>
+        <div className="mt-6">
+          <div>
+            <Form.Item label={t('label.completedUniversityType')} required>
+              <div className="grid md:grid-cols-2 gap-6">
+                {eduInstitutionTypes
+                  .filter((el) => el.availableAdmissionTypes?.includes(admissionTypeId!))
+                  .map((item) => (
+                    <StepButton
+                      onClick={() => changeStepState({ eduInstitutionTypeId: item.id })}
+                      selected={eduInstitutionTypeId === item.id}
+                      key={item.id}
+                      label={item.name}
+                      icon={<BookOpen size={20} />}
+                    />
+                  ))}
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              name="graduatedYear"
+              label={t('label.graduatedYear')}
+              rules={[{ required: true }]}
+            >
+              <SelectInput
+                placeholder={t('label.graduatedYear')}
+                options={GRADUATED_YEARS.map((item) => ({ label: item, value: item }))}
+              />
+            </Form.Item>
+          </div>
+        </div>
+
+        <div>
+          {isHaveCertificate && (
+            <div className="mt-4">
+              <UserCertificates certificates={certificates} fetchCertificates={refetch} />
+            </div>
+          )}
+        </div>
+
+        <div className="mt-6 flex justify-between">
+          <AnimatedButton variant="secondary" onClick={prevStep}>
+            <ChevronLeft size={20} /> {t('action.back')}
+          </AnimatedButton>
+
+          <AnimatedButton loading={isNextLoading} type="submit" disabled={isNextDisabled}>
+            {t('action.next')} <ChevronRight size={20} />
+          </AnimatedButton>
+        </div>
+      </Form>
+    </div>
+  )
+}

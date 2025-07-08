@@ -1,0 +1,153 @@
+{
+  "action": {
+    "add": "Qo'shish",
+    "edit": "Tahrirlash",
+    "delete": "O'chirish",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "close": "Yopish",
+    "yes": "Ha",
+    "no": "Yo‘q",
+    "search": "Qidirish",
+    "reset": "Qayta tiklash",
+    "download": "Yuklash",
+    "upload": "Yuklash",
+    "back": "Orqaga qaytish",
+    "confirm": "Tasdiqlash",
+    "previous": "Oldingi",
+    "apply": "ARIZA TOPSHIRISH",
+    "next": "Davom ettirish",
+    "startTest": "Testni boshlash"
+  },
+  "applicationSteps": {
+    "title": "<0>Ariza yuborish</0> bosqichlari",
+    "description": "Qanday ariza yuborishni bilmayotgan bo‘lsangiz pastdagi qadamlar yoki video qo‘llanma orqali batafsil ma’lumot oling",
+    "steps": [
+      {
+        "title": "Ro‘yxatdan o‘tish",
+        "description": "One ID orqali tez va oson avtorizatsiyadan o‘tish va shaxsiy ma’lumotlarni kiritish mumkin."
+      },
+      {
+        "title": "Ariza yuborish",
+        "description": "Shaxsiy va ta’lim ma’lumotlaringizni kiriting va Malaka oshirish uchun ariza yuboring"
+      },
+      {
+        "title": "Test topshirish",
+        "description": "Mening arizalarim bo‘limidan ariza holatini kuzatib boring"
+      },
+      {
+        "title": "Shartnomani yuklab olish",
+        "description": "Mening arizalarim bo‘limidan ariza holatini kuzatib boring"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Qabulga oid eng ko‘p beriladigan <0>savollar</0>",
+    "description": "Pastdagi savollarni birinchi o‘qib chiqing, agar savolingiz javobsiz qolsa, bizga murojaat qiling",
+    "questions": [
+      {
+        "question": "Qachongacha hujjatlar qabul qilinadi?",
+        "answer": "Qabul 2025-yil 30-sentabr kuniga qadar davom etadi"
+      },
+      {
+        "question": "Qo'qon universiteti” diplomi rasmiy kuchga egami? Kelgusida ushbu diplom tan olinadimi?",
+        "answer": "Qo'qon universiteti” O'zbekiston Respublikasi Vazirlar Mahkamasining 2019-yil 17-avgustdagi 683-sonli qaroriga muvofiq tashkil etilgan bo'lib, O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi tomonidan 602319-sonli litsenziya taqdim etilgan. Shuningdek qarorda ushbu universitet bitiruvchilariga O’zbekiston Respublikasida oliy ta’lim to’g’risidagi hujjat sifatida tan olinadigan belgilangan namunadagi diplom beriladi’’ deya qayd etilgan."
+      },
+      {
+        "question": "Ro‘yxatdan o‘tish va imtihon topshirish uchun to‘lov qilish kerakmi?",
+        "answer": "Ro‘yxatdan o‘tish va imtihon topshirish uchun hech qanday to‘lov qilinmaydi"
+      },
+      {
+        "question": "Shartnoma to‘lovini bo‘lib to‘lash imkoni bormi?",
+        "answer": "Imtihonlardan muvaffaqiyatli o‘tilgandan so‘ng shartnoma to‘lovining 50% qismini avval to‘lash zarur bo‘ladi, qolgan qismini 1-yarim yillik yakunigacha to‘lov qilish imkoni mavjud"
+      }
+    ]
+  },
+  "videoSection": {
+    "title": "Quyidagi video qo‘llanma orqali ariza yuborish bosqichilari haqida batafsil ma’lumotga ega bo‘ling"
+  },
+  "user": {
+    "profile": "Mening kabinetim"
+  },
+  "heroSection": {
+    "title": "<0>KUAF</0> - Ta'lim va amaliyot uyg'unligi!",
+    "subtitle": "O‘zbekistonning <0>yetakchi</0> universitetlaridan biri",
+    "beStudent": "talabasi bo‘ling!",
+    "description": "2025/2026-o‘quv yili uchun <0>qabul</0> boshlandi"
+  },
+  "advantageSection": {
+    "title": "Bizning afzalliklarimiz",
+    "description": "“Kokand University” Andijon filiali bilan birga quyidagi imkoniyatlarga ega bo'ling",
+    "advantages": [
+      {
+        "title": "Grant imkoniyati",
+        "description": "100% gacha grant yutib oling"
+      },
+      {
+        "title": "Xalqaro imkoniyatlar",
+        "description": "Nufuzli chet el universitetlarda o'qishni davom ettirish imkoniyati"
+      },
+      {
+        "title": "Zamonaviy ta'lim",
+        "description": "Zamonaviy muhitda zamonaviy bilim oling"
+      }
+    ]
+  },
+  "specialtiesSection": {
+    "title": "<0>KUAF</0> da quyidagi sohalardan birida o‘qishingiz va haqiqiy <1>professionallardan ta'lim olishingiz</1> mumkin",
+    "description": "O‘z orzularingizni ro‘yobga chiqarish va yorqin kelajak sari yo‘l ochish vaqti keldi! Tashkent International University sizga eng ilg‘or bilimlar, tajribali ustozlar va innovatsion ta’lim muhitini taqdim etadi."
+  },
+  "common": {
+    "sum": "so‘m",
+    "soon": "Tez orada"
+  },
+  "footer": {
+    "socials": "Biz ijtimoiy tarmoqlarda",
+    "contact": "Bog'lanish",
+    "copyright": "2025 “Kokand University” Andijon filiali. All rights reserved.",
+    "site": "https://kuaf.uz/uz",
+    "phone": "+998 74 200 22 22",
+    "email": "info@kuaf.uz",
+    "address": "Andijon viloyati, Andijon shaxar. Bobur shox ko'chasi 2-b-uy."
+  },
+  "admission": {
+    "steps": [
+      "Shaxsiy ma’lumotlar",
+      "Ta'lim ma'lumotlari",
+      "Yo'nalishlar"
+    ],
+    "personalInfo": "Shaxsiy ma’lumotlar",
+    "admissionTypes": "Qabul turlari",
+    "educationInfo": "Ta'lim ma'lumotlari",
+    "admissionInfo": "Qabul ma'lumotlari"
+  },
+  "label": {
+    "fio": "F.I.O",
+    "pinfl": "JSHSHIR",
+    "serialAndNumber": "Seriyasi va raqami",
+    "phoneNumber": "Telefon raqami",
+    "birthDate": "Tug`ilgan yili",
+    "nationality": "Millati",
+    "gender": "Jinsi",
+    "studyDirection": "Ta'lim yo‘nalishi",
+    "eduForm": "Ta'lim turi",
+    "university": "Universitet",
+    "specialty": "Ta'lim yo‘nalishi",
+    "admissionType": "Qabul turi",
+    "admissionDate": "Qabul vaqti",
+    "admissionNumber": "Qabul raqami",
+    "admissionSerial": "Qabul seriyasi",
+    "completedUniversityType": "Tugatgan ta'lim muassasangiz turini tanglang",
+    "graduatedYear": "Bitirgan yili",
+    "haveCertificate": "Sertifikatingiz bormi?",
+    "degree": "Ta’lim shakli",
+    "language": "Ta’lim tili",
+    "contractPrice": "Kontrakt narxi",
+    "examType": "Imtihon turini tanlang",
+    "applicantRegistrationForm": "Qayd varaqasi",
+    "password": "Parol",
+    "newPassword": "Yangi parol"
+  },
+  "welcome": "KUAF ga xush kelibsiz!",
+  "universityName": "“Kokand University” Andijon filiali"
+}

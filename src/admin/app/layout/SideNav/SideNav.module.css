@@ -1,0 +1,25 @@
+.SideNav {
+  padding: 1rem 1rem 0;
+  background-color: white;
+  height: calc(100vh - 65px);
+  overflow-y: scroll;
+}
+
+.Logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 65px;
+  border-right: 1px solid #f0f0f0;
+
+  font-size: 24px;
+  color: black;
+  padding: 12px 0;
+
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
+}
+.Logo:hover {
+  /* color: white; */
+}

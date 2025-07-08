@@ -1,0 +1,153 @@
+.graphinfo {
+  padding: 20px;
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.1);
+  .grahp-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #202122;
+    //margin-bottom: 16px;
+  }
+
+  &-stat {
+    display: flex;
+    column-gap: 32px;
+    // margin-bottom: 24px; x
+    padding-left: 3px;
+    margin-top: 6px;
+
+    p {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: -0.08px;
+      color: #979ea4;
+    }
+
+    h2 {
+      color: #202122;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 40px;
+    }
+
+    .ant-statistic-content-value-int {
+      color: #202122;
+    }
+  }
+
+  &-graph {
+    .echarts-for-react {
+      height: 304px !important;
+    }
+    &-144 {
+      .echarts-for-react {
+        height: 144px !important;
+      }
+    }
+    &-192 {
+      .echarts-for-react {
+        height: 192px !important;
+      }
+    }
+    &-204 {
+      .echarts-for-react {
+        height: 204px !important;
+      }
+    }
+    &-300 {
+      .echarts-for-react {
+        height: 300px !important;
+      }
+    }
+    &-320 {
+      .echarts-for-react {
+        height: 320px !important;
+      }
+    }
+    &-332 {
+      .echarts-for-react {
+        height: 332px !important;
+      }
+    }
+    &-336 {
+      .echarts-for-react {
+        height: 336px !important;
+      }
+    }
+    &-396 {
+      .echarts-for-react {
+        height: 396px !important;
+      }
+    }
+    &-460 {
+      .echarts-for-react {
+        height: 460px !important;
+      }
+    }
+    &-440 {
+      .echarts-for-react {
+        height: 450px !important;
+      }
+    }
+    &-649 {
+      .echarts-for-react {
+        height: 649px !important;
+      }
+    }
+    &-720 {
+      .echarts-for-react {
+        height: 720px !important;
+      }
+    }
+  }
+}
+
+.graph-row {
+  margin-top: 24px;
+  .graph-row-child {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.graph-row-flex {
+  width: 100%;
+  margin-top: 24px;
+  display: flex;
+  column-gap: 24px;
+
+  .graphinfo {
+    width: calc(50% - 12px);
+  }
+}
+
+.align-start {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  p {
+    font-size: 18px;
+    color: #202122;
+    font-weight: 700;
+    line-height: 24px;
+  }
+}
+.mb {
+  margin-bottom: 35px;
+}
+
+.w-200 {
+  width: 250px;
+}

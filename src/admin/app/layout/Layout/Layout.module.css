@@ -1,0 +1,11 @@
+.Layout {
+  height: 100vh;
+  background-color: white;
+}
+
+.Main {
+  overflow: auto;
+  height: calc(100vh - 65px);
+  padding: 16px;
+  background-color: #f0f9ff;
+}

@@ -1,0 +1,205 @@
+import { ReactNode } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { useGetApplications } from '@/api/services/application.service'
+import {
+  removeExam,
+  useCreateExam,
+  useCreateExamTest,
+  useGetExamTest
+} from '@/api/services/exam.service'
+import { useAuthStore } from '@/app/store/authStore'
+import AnimatedButton, { AnimatedButtonProps } from '@/components/AnimatedButton'
+import { useTest } from '@/hooks/useTest'
+import { ApplicationStatusEnum, ExamTypeEnum } from '@/types/enum'
+import { Steps } from 'antd'
+import { Download } from 'lucide-react'
+
+export const AdmissionTracking = () => {
+  const user = useAuthStore((state) => state.user)
+  const navigate = useNavigate()
+
+  const { data: application, isLoading } = useGetApplications()
+  const { data: test, isLoading: testLoading } = useGetExamTest()
+  const { isTestEnded, isTestStarted, remainedTimeInMinutes } = useTest(test)
+
+  const isApplicationConfirmed = application?.status === ApplicationStatusEnum.APPROVED
+
+  const { isCreating: isCreatingTest, createAsync: createTestAsync } = useCreateExamTest({
+    onSuccess: () => {
+      navigate('/admission/exam')
+    }
+  })
+
+  const { isCreating: isCreatingExam, createAsync: createExamAsync } = useCreateExam({})
+
+  const startTest = async () => {
+    await createExamAsync()
+
+    await createTestAsync({
+      startTime: new Date().toISOString(),
+      data: {}
+    })
+  }
+
+  const restartTest = async () => {
+    await removeExam()
+    await createExamAsync()
+
+    await createTestAsync({
+      startTime: new Date().toISOString(),
+      data: {}
+    })
+  }
+
+  if (isLoading || testLoading) {
+    return null
+  }
+
+  const isApplied: boolean = !!application
+  const isHaveContract: boolean = !!user?.contractUrl
+  const examType: ExamTypeEnum = user?.examType
+
+  const isOfflineExam = examType === ExamTypeEnum.OFFLINE
+
+  const getExamTitle = () => {
+    if (isHaveContract) {
+      return 'Imtihon topshirildi'
+    }
+
+    if (application && application.score) {
+      return 'Imtihon topshirildi'
+    }
+
+    if (isTestStarted && !isTestEnded) {
+      return 'Imtihon topshirilmoqda'
+    }
+
+    return 'Imtihon topshirilmagan'
+  }
+
+  const examDescription = () => {
+    if (!application) return null
+
+    if (application && application.score) {
+      return <span className="whitespace-nowrap">To‘plangan ball - {application.score}</span>
+    }
+
+    if (isOfflineExam) {
+      return (
+        <span className="whitespace-nowrap">
+          Imtihon vaqti:{' '}
+          {application?.examLocation?.date
+            ? `${application?.examLocation?.date} ${application?.examLocation?.time}`
+            : 'belgilanmagan'}
+        </span>
+      )
+    }
+
+    if (isTestStarted && !isTestEnded) {
+      return (
+        <Link to="/admission/exam">
+          <StepBtn>Davom ettirish</StepBtn>
+        </Link>
+      )
+    }
+
+    if (!isApplicationConfirmed) {
+      return null
+    }
+
+    if (isTestStarted && isTestEnded) {
+      return (
+        <StepBtn loading={isCreatingTest || isCreatingExam} onClick={restartTest}>
+          Testni boshlash
+        </StepBtn>
+      )
+    }
+
+    return (
+      <StepBtn loading={isCreatingTest || isCreatingExam} onClick={startTest}>
+        Testni boshlash
+      </StepBtn>
+    )
+  }
+
+  const getCurrentStep = () => {
+    if (isHaveContract) {
+      return 2
+    }
+    if (application) {
+      return 1
+    }
+    return 0
+  }
+
+  return (
+    <div className="mt-4 gap-8 bg-white rounded-2xl p-4">
+      <div className="max-w-5xl mx-auto">
+        <div>
+          <Steps
+            progressDot
+            labelPlacement="vertical"
+            current={getCurrentStep()}
+            items={[
+              {
+                title: <Title>{isApplied ? 'Ariza topshirildi' : 'Ariza mavjud emas'}</Title>,
+                description: isApplied ? (
+                  <>
+                    {user?.applicantRegistrationForm && (
+                      <a
+                        target="_blank"
+                        href={user.applicantRegistrationForm}
+                        download="Qayd-varaqa.pdf"
+                      >
+                        <StepBtn>
+                          <Download size={18} /> Qayd varaqa
+                        </StepBtn>
+                      </a>
+                    )}
+                  </>
+                ) : (
+                  <Link to="/admission">
+                    <StepBtn>Ariza topshirish</StepBtn>
+                  </Link>
+                )
+              },
+
+              {
+                title: <Title>{getExamTitle()}</Title>,
+                subTitle:
+                  isTestStarted && !isTestEnded
+                    ? 'Qolgan vaqt: ' + remainedTimeInMinutes + ' daqiqa'
+                    : null,
+                description: examDescription()
+              },
+
+              {
+                title: (
+                  <Title>
+                    {isHaveContract ? 'Shartnoma shakllangan' : 'Shartnoma mavjud emas'}
+                  </Title>
+                ),
+                description: isHaveContract ? (
+                  <a target="_blank" href={user.contractUrl} download="Shartnoma.pdf">
+                    <StepBtn>
+                      <Download size={18} /> Shartnoma
+                    </StepBtn>
+                  </a>
+                ) : null
+              }
+            ]}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const Title = ({ children }: { children: ReactNode }) => {
+  return <p className="whitespace-nowrap text-center">{children}</p>
+}
+
+const StepBtn = (props: AnimatedButtonProps) => {
+  return <AnimatedButton className="py-1 px-3 whitespace-nowrap" {...props} />
+}

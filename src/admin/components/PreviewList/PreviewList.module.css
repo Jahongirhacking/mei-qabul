@@ -1,0 +1,28 @@
+.PreviewList {
+  width: 100%;
+  border: 1px solid #d2cece;
+  border-radius: 4px;
+}
+
+.PreviewListItem {
+  display: flex;
+  border-collapse: collapse;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 5px 8px;
+
+  border-bottom: 1px solid #d2cece;
+}
+
+.PreviewListItem:last-child {
+  border-bottom: none;
+}
+
+.PreviewListItem > span:first-child {
+  font-weight: 500;
+}
+
+.PreviewListItem > span:first-child::after {
+  content: ':';
+}

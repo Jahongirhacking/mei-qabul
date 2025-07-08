@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url('./variables.css'); */
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+}
+
+body {
+  font-family: 'Inter';
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer utilities {
+  .backdrop-blur-lg {
+    backdrop-filter: blur(16px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #383b3f;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.loader-animation {
+  animation: rotate 1s infinite linear;
+}
+
+.blur-backdrop {
+  @apply bg-white/80 backdrop-blur-md backdrop-saturate-150;
+}
+
+.chat-message {
+  @apply transition-all duration-300;
+}
+
+.chat-message-sent {
+  @apply bg-chat-bubble text-white;
+}
+
+.chat-message-received {
+  @apply border border-gray-100 bg-chat-received;
+}
+
+.chat-list-item {
+  @apply transition-all duration-200 hover:bg-gray-100/50;
+}
+
+.chat-list-item.active {
+  @apply border-l-4 border-primary bg-primary/5;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+    color: #1659af;
+  }
+  50% {
+    transform: rotate(180deg);
+    color: #4dade4;
+  }
+  100% {
+    transform: rotate(360deg);
+    color: #1659af;
+  }
+}
+
+.save-green-button {
+  outline: none;
+  color: white;
+  background-color: #22c55e;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  flex: 1;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.save-green-button:hover {
+  background-color: #22c55e !important;
+  opacity: 0.8;
+}
+
+.ant-upload.ant-upload-select {
+  width: 100%;
+}
+
+.rejected {
+  @apply font-semibold text-red-600;
+}
+.new {
+  @apply font-semibold text-blue-600;
+}
+.confirmed {
+  @apply font-semibold text-green-600;
+}
+
+.pending {
+  @apply font-semibold text-yellow-500;
+}
+
+.input-mask {
+  display: flex;
+  padding: 8px 7px;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 6px;
+  color: #262633;
+  border: 1px solid #ced4da;
+  font-size: 15px;
+}
+.input-mask:focus {
+  outline: none;
+}
