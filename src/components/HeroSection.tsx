@@ -36,8 +36,8 @@ export const HeroSection = () => {
       {/* Decorative elements */}
       <div className="absolute left-0 top-1/4 w-64 h-64 rounded-full bg-university-primary/20 blur-3xl"></div>
       <div className="absolute right-1/4 bottom-1/3 w-80 h-80 rounded-full bg-university-primary/10 blur-3xl"></div>
-      <div className="absolute left-1/2 bottom-8 md:bottom-20 -translate-x-1/2">
-        <p className="text-glow text-lg md:text-3xl font-semibold whitespace-nowrap">
+      <div className="absolute left-1/2 bottom-8 md:bottom-20 -translate-x-1/2 w-[90%]">
+        <p className="text-glow text-lg md:text-3xl font-semibold text-center">
           <Trans i18nKey="heroSection.title">
             <span className="text-white"></span>
           </Trans>
