@@ -59,15 +59,21 @@ export const Footer = () => {
               <ul className="space-y-4">
                 <li className="flex items-center">
                   <Globe size={20} className="text-university-primary mr-2" />
-                  <span className="text-gray-300">{t("footer.site")}</span>
+                  <a href={`${t("footer.site")}`} target="_blank" className="text-gray-300">{t("footer.site")}</a>
                 </li>
                 <li className="flex items-center">
                   <Phone size={20} className="text-university-primary mr-2" />
-                  <span className="text-gray-300">{t("footer.phone")}</span>
+                  <Flex vertical className="text-gray-300">
+                    <a href="tel:+998951457741">+998951457741</a>
+                    <a href="tel:+998951457742">+998951457742</a>
+                    <a href="tel:+998951457743">+998951457743</a>
+                    <a href="tel:+998951457745">+998951457745</a>
+                    <a href="tel:+998951457746">+998951457746</a>
+                  </Flex>
                 </li>
                 <li className="flex items-center">
                   <Mail size={20} className="text-university-primary mr-2" />
-                  <span className="text-gray-300">{t("footer.email")}</span>
+                  <a href={`mailto:${t("footer.email")}`} target="_blank" className="text-gray-300">{t("footer.email")}</a>
                 </li>
                 <li className="flex items-start">
                   <MapPin size={20} className="text-university-primary mr-2 mt-1" />
