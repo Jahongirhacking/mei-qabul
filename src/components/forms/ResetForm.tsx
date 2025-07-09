@@ -8,6 +8,7 @@ import { PhoneFormItem, clearMask } from "@/components/formItems/PhoneFormItem"
 import { TextInput } from "@/components/inputs/TextInput"
 import { formatToPhoneMask } from "@/lib/format"
 import { Form } from "antd"
+import moment from "moment"
 import { toast } from "sonner"
 
 export const ResetForm = () => {
@@ -64,7 +65,7 @@ export const ResetForm = () => {
     <Form initialValues={initialValues} onFinish={onFinish} layout="vertical">
       <div className="w-fit p-8 rounded-3xl bg-white max-w-96">
         <h1 className="text-university-secondary-700 text-xl mb-4 font-bold text-center">{t("universityName")}</h1>
-        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-2025"!</p>
+        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-{moment().year()}"!</p>
         <p className="mb-6 text-gray-500 text-center">{savedCode ? "Новый пароль" : "На ваш номер телефона отправлен SMS-код для восстановления пароля"}</p>
 
         <PhoneFormItem name="phoneNumber" label={t("label.phoneNumber")} />

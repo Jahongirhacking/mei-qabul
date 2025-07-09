@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 
+import { Flex, Typography } from "antd"
 import { Globe, Mail, MapPin, Phone } from "lucide-react"
 
 // const socials = [
@@ -32,7 +33,10 @@ export const Footer = () => {
       <div className="container mx-auto px-6 py-12">
         <div className="flex justify-between flex-wrap align-center gap-8">
           <section>
-            <img className="w-40" src="/logo.png" alt="logo" />
+            <Flex gap={18} align="center" wrap>
+              <img className="w-40" src="/logo.png" alt="logo" />
+              <Typography.Text strong style={{ maxWidth: 450, color: '#fff', fontSize: 18 }} className="university-name">Филиал Национального исследовательского университета «МЭИ» в городе Ташкенте</Typography.Text>
+            </Flex>
           </section>
 
           <section className="flex flex-col md:flex-row gap-24">

@@ -16,10 +16,34 @@
         margin: auto;
       }
     }
+
+    .container {
+      padding-top: 12rem;
+
+      .bg-glow {
+        @media screen and (max-width: 550px) {
+          font-size: 24pt;
+        }
+      }
+    }
+    .bg-university-primary\/10 {
+      background-color: #020a5c46 !important;
+    }
   }
 
   .home-header {
     background-color: #005096;
+  }
+
+  header {
+    .university-name {
+      @media screen and (max-width: 550px) {
+        font-size: 11px !important;
+      }
+      @media screen and (max-width: 400px) {
+        display: none;
+      }
+    }
   }
 
   .text-university-secondary-600 {
@@ -31,7 +55,7 @@
   }
 
   .text-university-secondary-700 {
-    color: #000;
+    color: #005096;
   }
 
   .home-footer {
@@ -41,7 +65,8 @@
   }
 }
 
-.login-form {
+.login-form,
+.forgot-password {
   .text-university-secondary-700 {
     color: #005096;
   }

@@ -12,6 +12,7 @@ import { TextInput } from "@/components/inputs/TextInput"
 import { BaseResponse } from "@/types/IRequest"
 import { Checkbox, Flex, Form, Input } from "antd"
 import { AxiosError } from "axios"
+import moment from "moment"
 import { toast } from "sonner"
 
 export const LoginForm = () => {
@@ -117,7 +118,7 @@ export const LoginForm = () => {
     <Form form={form} onFinish={onFinish} layout="vertical" className="login-form">
       <div className="w-fit p-8 rounded-3xl bg-white max-w-96">
         <h1 className="text-university-secondary-700 text-xl mb-4 font-bold text-center">{t("universityName")}</h1>
-        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-2025"!</p>
+        <p className="text-university-secondary-700 text-xl mb-2 text-center text-balance">Добро пожаловать на платформу "Qabul-{moment().year()}"!</p>
         <p className="mb-6 text-gray-500 text-center">Пожалуйста, войдите в систему или зарегистрируйтесь.</p>
 
         <PhoneFormItem name="phoneNumber" label="Номер телефона" />

@@ -5,6 +5,7 @@ import { useAuthStore } from "@/app/store/authStore"
 import { cn } from "@/lib/utils"
 import { UserCircle } from "lucide-react"
 
+import { Flex, Typography } from "antd"
 import { AnimatedButton } from "./AnimatedButton"
 
 export const Navbar = () => {
@@ -33,9 +34,12 @@ export const Navbar = () => {
     >
       <div className="container mx-auto">
         <div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-x-4">
             <Link to="/">
-              <img src="/logo.png" alt="logo" className="w-20" />
+              <Flex gap={12} align="center">
+                <img src="/logo.png" alt="logo" className="w-20" />
+                <Typography.Text strong style={{ maxWidth: 250, color: '#fff' }} className="university-name">Филиал Национального исследовательского университета «МЭИ» в городе Ташкенте</Typography.Text>
+              </Flex>
             </Link>
 
             <div className="flex items-center justify-end gap-8">
@@ -73,7 +77,7 @@ export const Navbar = () => {
 
           {isApplied() || (
             <Link className="block md:hidden mt-4" to="/admission">
-              <AnimatedButton className="w-full">ARIZA TOPSHIRISH</AnimatedButton>
+              <AnimatedButton className="w-full">Подать заявление</AnimatedButton>
             </Link>
           )}
         </div>

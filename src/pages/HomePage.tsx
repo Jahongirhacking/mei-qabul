@@ -67,7 +67,7 @@ export default function HomePage() {
       <section className="py-20 px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-semibold mb-4 py-1 px-3">
+            <h2 className="text-5xl font-semibold mb-4 py-1 px-3" style={{ color: '#005096' }}>
               <Trans i18nKey="faq.title">
                 <span className="text-glow"></span>
               </Trans>

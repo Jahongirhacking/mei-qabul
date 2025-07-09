@@ -29,7 +29,7 @@ export const AdvantagesSection = () => {
           {advantages.map((advantage, index) => (
             <div key={index} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
               <div className="flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-6 mx-auto">{advantage.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-900 text-center mb-3">{t(`advantageSection.advantages.${index}.title`)}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 text-center mb-3" style={{ color: '#005096' }}>{t(`advantageSection.advantages.${index}.title`)}</h3>
               <p className="text-gray-600 text-center">{t(`advantageSection.advantages.${index}.description`)}</p>
             </div>
           ))}

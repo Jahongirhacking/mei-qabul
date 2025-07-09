@@ -64,7 +64,7 @@ export default function ApplicationsPage() {
     if (!application) {
       return (
         <Link to="/admission">
-          <AnimatedButton className="mb-5">Ariza topshirish</AnimatedButton>
+          <AnimatedButton className="mb-5">Подать заявление</AnimatedButton>
         </Link>
       )
     }
@@ -73,7 +73,7 @@ export default function ApplicationsPage() {
       return (
         <div>
           <Link to="/admission">
-            <AnimatedButton className="mb-5">Ariza topshirish</AnimatedButton>
+            <AnimatedButton className="mb-5">Подать заявление</AnimatedButton>
           </Link>
 
           <ApplicationResultCard

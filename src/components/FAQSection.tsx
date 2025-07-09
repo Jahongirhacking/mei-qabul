@@ -45,7 +45,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, isOpen, onClick, de
   return (
     <div ref={itemRef} className={cn("border-b border-gray-200 py-4 transition-all duration-700 opacity-0 translate-y-10", "last:border-b-0")}>
       <button className="flex justify-between items-center w-full text-left py-2" onClick={onClick} aria-expanded={isOpen}>
-        <h3 className="text-lg font-medium text-gray-800">{question}</h3>
+        <h3 className="text-lg font-medium text-gray-800" style={{ color: '#005096' }}>{question}</h3>
         {isOpen ? <ChevronUp className="text-university-secondary h-5 w-5" /> : <ChevronDown className="text-university-secondary h-5 w-5" />}
       </button>
       <div className={cn("overflow-hidden transition-all duration-300 ease-in-out", isOpen ? "max-h-40 opacity-100 mt-2" : "max-h-0 opacity-0")}>
@@ -91,7 +91,7 @@ export const FAQSection = () => {
   return (
     <div ref={sectionRef} className="transition-all duration-700 opacity-0 translate-y-10">
       <div className="max-w-4xl mx-auto">
-        {[0, 1, 2, 3].map((index) => (
+        {[0, 3].map((index) => (
           <FAQItem
             key={index}
             question={t(`faq.questions.${index}.question`)}
