@@ -174,13 +174,22 @@ export default function ApplicationsPage() {
     }
   ]
 
+  const getApplicationStatus = (status: ApplicationStatusEnum) => {
+    if (!status) return null;
+    switch (status) {
+      case ApplicationStatusEnum.NEW: return <Tag color='processing'>Новое заявление</Tag>;
+      case ApplicationStatusEnum.APPROVED: return <Tag color='success'>Подтверждённое заявление</Tag>;
+      case ApplicationStatusEnum.CANCELLED: return <Tag color='error'>Отменённое заявление</Tag>;
+    }
+  }
+
   return (
     <div className="flex-1">
       <h1 className="text-2xl font-bold mb-5">Мои заявления</h1>
 
       {application && (
         <UserInfoCard
-          title={<Flex align='center' gap={12} wrap>Статус заявления: <Tag color='success'>{application?.status}</Tag></Flex>}
+          title={<Flex align='center' gap={12} wrap>Статус заявления: {getApplicationStatus(application?.status)}</Flex>}
           items={items}
         />
       )}

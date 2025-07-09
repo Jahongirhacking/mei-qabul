@@ -147,10 +147,10 @@ export const AdmissionTracking = () => {
                       <a
                         target="_blank"
                         href={user.applicantRegistrationForm}
-                        download="Qayd-varaqa.pdf"
+                        download="Регистрационный_листa.pdf"
                       >
                         <StepBtn>
-                          <Download size={18} /> Qayd varaqa
+                          <Download size={18} /> Регистрационный лист
                         </StepBtn>
                       </a>
                     )}
