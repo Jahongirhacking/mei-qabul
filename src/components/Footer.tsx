@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 
+import { universityName } from "@/app/config"
 import { Flex, Typography } from "antd"
 import { Globe, Mail, MapPin, Phone } from "lucide-react"
 
@@ -35,7 +36,7 @@ export const Footer = () => {
           <section>
             <Flex gap={18} align="center" wrap>
               <img className="w-40" src="/logo.png" alt="logo" />
-              <Typography.Text strong style={{ maxWidth: 450, color: '#fff', fontSize: 18 }} className="university-name">Филиал Национального исследовательского университета «МЭИ» в городе Ташкенте</Typography.Text>
+              <Typography.Text strong style={{ maxWidth: 450, color: '#fff', fontSize: 18 }} className="university-name">{universityName}</Typography.Text>
             </Flex>
           </section>
 

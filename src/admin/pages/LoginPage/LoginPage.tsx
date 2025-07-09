@@ -9,7 +9,7 @@ import { Button, ConfigProvider, Form, Input } from 'antd'
 import { toast } from 'sonner'
 
 export interface SignInInputs {
-  username: string
+  phoneNumber: string
   password: string
 }
 
@@ -66,7 +66,7 @@ export default function LoginPage() {
               layout="vertical"
               variant="filled"
             >
-              <Form.Item<SignInInputs> label="Login" name="username" rules={[{ required: true }]}>
+              <Form.Item<SignInInputs> label="Login" name="phoneNumber" rules={[{ required: true }]}>
                 <Input size="large" placeholder="Enter your login" />
               </Form.Item>
               <Form.Item<SignInInputs>

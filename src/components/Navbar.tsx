@@ -5,6 +5,8 @@ import { useAuthStore } from "@/app/store/authStore"
 import { cn } from "@/lib/utils"
 import { UserCircle } from "lucide-react"
 
+import { universityName } from "@/app/config"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { Flex, Typography } from "antd"
 import { AnimatedButton } from "./AnimatedButton"
 
@@ -12,6 +14,7 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const isApplied = useAuthStore((state) => state.isApplied)
+  const isMobile = useIsMobile();
   // const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -38,14 +41,18 @@ export const Navbar = () => {
             <Link to="/">
               <Flex gap={12} align="center">
                 <img src="/logo.png" alt="logo" className="w-20" />
-                <Typography.Text strong style={{ maxWidth: 250, color: '#fff' }} className="university-name">Филиал Национального исследовательского университета «МЭИ» в городе Ташкенте</Typography.Text>
+                {
+                  !isMobile && (
+                    <Typography.Text strong style={{ maxWidth: 500, color: '#fff' }} className="university-name">{universityName}</Typography.Text>
+                  )
+                }
               </Flex>
             </Link>
 
             <div className="flex items-center justify-end gap-8">
               <div>
                 {isAuthenticated ? (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 items-center">
                     {isApplied() || (
                       <Link to="/admission" className="hidden md:block">
                         <AnimatedButton>Подать заявление</AnimatedButton>
@@ -60,7 +67,7 @@ export const Navbar = () => {
                     </Link>
                   </div>
                 ) : (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 items-center">
                     <Link to="/admission" className="hidden md:block">
                       <AnimatedButton className="max-md:p-2">Подать заявление</AnimatedButton>
                     </Link>
@@ -74,6 +81,12 @@ export const Navbar = () => {
               {/* <SelectLanguage /> */}
             </div>
           </div>
+
+          {
+            isMobile && (
+              <Typography.Text strong style={{ maxWidth: 500, color: '#fff', textAlign: 'center', margin: '8px auto auto' }} className="university-name block">{universityName}</Typography.Text>
+            )
+          }
 
           {isApplied() || (
             <Link className="block md:hidden mt-4" to="/admission">

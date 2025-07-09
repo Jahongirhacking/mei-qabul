@@ -1,22 +1,32 @@
 import { Link, Outlet } from "react-router-dom"
 
-import { logoDarkPath } from "@/app/config"
+import { logoDarkPath, universityName } from "@/app/config"
 import { useAuthStore } from "@/app/store/authStore"
 import { ProfileSidebar } from "@/components/ProfileSidebar"
 import { AdmissionTracking } from "@/components/shared/AdmissionTracking"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { Flex, Typography } from "antd"
 import { UserCircle } from "lucide-react"
 
 export default function ProfileLayout() {
-  const user = useAuthStore((state) => state.user)
+  const user = useAuthStore((state) => state.user);
+  const isMobile = useIsMobile();
 
   return (
     <div className="min-h-screen relative bg-gray-50 pb-8">
       <header className="p-2 py-4 md:px-12 bg-white/90 backdrop-blur-md shadow-md">
         <div className="container mx-auto">
           <div className="flex items-center justify-between">
-            <div className="w-36">
+            <div className="w">
               <Link to="/">
-                <img src={logoDarkPath} alt="logo" className="w-20" />
+                <Flex align="center" gap={12}>
+                  <img src={logoDarkPath} alt="logo" className="w-20" />
+                  {
+                    !isMobile && (
+                      <Typography.Text strong className="university-name" style={{ maxWidth: 500 }}>{universityName}</Typography.Text>
+                    )
+                  }
+                </Flex>
               </Link>
             </div>
 
@@ -32,6 +42,11 @@ export default function ProfileLayout() {
             </div>
 
           </div>
+          {
+            isMobile && (
+              <Typography.Text strong className="university-name block" style={{ textAlign: 'center', margin: '10px auto auto' }}>{universityName}</Typography.Text>
+            )
+          }
         </div>
       </header>
 

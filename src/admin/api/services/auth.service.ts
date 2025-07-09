@@ -8,7 +8,7 @@ export const useSignInMutation = (
 ) => {
   return useMutation({
     mutationFn: (data: SignInInputs) =>
-      httpService.post<BaseResponse<SignInResponse>, SignInInputs>('/auth/admin/sign-in', data),
+      httpService.post<BaseResponse<SignInResponse>, SignInInputs>('/auth/sign-in', data),
     ...props
   })
 }

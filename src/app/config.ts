@@ -11,6 +11,8 @@ export const GRADUATED_YEARS: number[] = [
 ]
 export const logoPath = '/logo.png'
 export const logoDarkPath = '/logo.png'
+export const universityName =
+  'Филиал Федерального государственного бюджетного образовательного учреждения высшего образования «Национальный исследовательский университет «МЭИ» в городе Ташкенте'
 
 export const guideVideoUrl = 'https://www.youtube.com/embed/C_5SRFcab-8'
 

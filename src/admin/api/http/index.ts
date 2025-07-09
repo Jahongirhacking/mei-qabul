@@ -2,7 +2,7 @@ import { AxiosClient } from '@/admin/api/http/AxiosClient'
 import { HttpInterceptor } from '@/admin/api/http/HttpInterceptor'
 import type { CreateAxiosDefaults } from 'axios'
 
-export const HOST = 'https://qabul.nextedu.uz/api'
+export const HOST = 'https://qabul.mpei.uz/api'
 
 const options: CreateAxiosDefaults = {
   baseURL: HOST,

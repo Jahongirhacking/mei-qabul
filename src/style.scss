@@ -20,6 +20,10 @@
     .container {
       padding-top: 12rem;
 
+      @media screen and (max-width: 750px) {
+        padding-top: 17rem;
+      }
+
       .bg-glow {
         @media screen and (max-width: 550px) {
           font-size: 24pt;
@@ -33,17 +37,6 @@
 
   .home-header {
     background-color: #005096;
-  }
-
-  header {
-    .university-name {
-      @media screen and (max-width: 550px) {
-        font-size: 11px !important;
-      }
-      @media screen and (max-width: 400px) {
-        display: none;
-      }
-    }
   }
 
   .text-university-secondary-600 {
@@ -73,5 +66,20 @@
 
   .ant-input-password {
     height: 40px;
+  }
+}
+
+header {
+  .university-name {
+    @media screen and (max-width: 1080px) {
+      font-size: 13px !important;
+    }
+    @media screen and (max-width: 850px) {
+      font-size: 12px !important;
+      max-width: 100% !important;
+    }
+    @media screen and (max-width: 330px) {
+      display: none;
+    }
   }
 }
