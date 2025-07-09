@@ -19,7 +19,7 @@ export default function ReportApplicationsPage() {
   const { data, isFetching } = useGetReportApplications({
     page: 1,
     size: 10000,
-    admissionTypeId
+    admissionTypeId,
   })
   const { data: admissionTypeList } = useGetAdmissionTypeList()
 

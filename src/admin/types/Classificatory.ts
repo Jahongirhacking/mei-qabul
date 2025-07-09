@@ -146,6 +146,7 @@ export type IGetCertificatesOptions = {
 
 export type IGetReportApplicationsOptions = {
   admissionTypeId?: number
+  specialityId?: number
 } & PaginationOptions
 
 export interface IGetApplicationsForCallCenterResponse {

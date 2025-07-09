@@ -10,7 +10,7 @@ export function BaseTable<T extends AnyObject = AnyObject>(props: TableProps<T>)
       rowKey="id"
       pagination={TABLE_PAGINATION_CONFIG}
       locale={{
-        emptyText: <Empty description="Ma'lumot mavjud emas" imageStyle={{ height: '80px' }} />
+        emptyText: <Empty description="Ma'lumot mavjud emas" style={{ height: '150px' }} />
       }}
       rowSelection={{
         columnTitle: '№',

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 
 import { Loader } from "@/components/Loader"
 import { IApplicationInfoResponseForQrCode } from "@/types/User"
-import { Button } from "antd"
+import { Button, message } from "antd"
 import axios from "axios"
 import { Download } from "lucide-react"
 
@@ -17,12 +17,13 @@ export default function QrCodeApplicationInfoPage() {
   const fetchData = async (id: string) => {
     setLoading(true)
     try {
-      const response = await axios.get(`https://qabul.kuaf.uz/api/application/qr-code/${id}`)
+      const response = await axios.get(`https://qabul.mpei.uz/api/application/qr-code/${id}`)
       if (response.data) {
         setData(response.data)
         setLoading(false)
       }
     } catch (error) {
+      message.error("QR kod malumotlarini olishda xatolik");
       console.error("Qr code malumotlarini olishda xatolik:", error)
     } finally {
       setLoading(false)

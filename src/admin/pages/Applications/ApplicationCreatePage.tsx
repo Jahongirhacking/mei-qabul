@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import {
   useGetEduDegreesListByFilter,
-  useGetEduInstitutionTypesList,
-  useGetEduLanguagesListByFilter,
-  useGetSpecialtiesListByFilter
+  useGetEduInstitutionTypesList, useGetSpecialtiesListByFilter
 } from '@/admin/api/services/common.service'
 import { useCreateApplications } from '@/admin/api/services/contracts.service'
 import paths from '@/admin/app/router/paths'
@@ -41,7 +39,6 @@ export default function ApplicationCreatePage() {
   const [admissionForm] = useForm()
   const [user, setUser] = useState<PassportResponse>()
   const [degreeIdByFilter, setDegreeIdByFilter] = useState<number>()
-  const [languageIdByFilter, setLanguageByFilterId] = useState<number>()
   const [examType, setExamType] = useState<string>()
   const navigate = useNavigate()
 
@@ -62,26 +59,12 @@ export default function ApplicationCreatePage() {
     enabled: true
   })
 
-  const { data: languageListByFilter, isLoading } = useGetEduLanguagesListByFilter({
-    params: {
-      admissionTypeId: 1,
-      eduLevelId: 11,
-      eduTypeId: 11,
-      degreeId: degreeIdByFilter
-    },
-    enabled: !!degreeIdByFilter
-  })
-
   const { data: specialitiesListByFilter, isLoading: isSpecialityLoading } =
     useGetSpecialtiesListByFilter({
       params: {
-        admissionTypeId: 1,
-        eduLevelId: 11,
-        eduTypeId: 11,
-        degreeId: degreeIdByFilter,
-        languageId: languageIdByFilter
+        degreeId: degreeIdByFilter
       },
-      enabled: !!languageIdByFilter && !!degreeIdByFilter
+      enabled: !!degreeIdByFilter
     })
 
   const setUserFields = (data: PassportResponse) => {
@@ -201,23 +184,6 @@ export default function ApplicationCreatePage() {
                     setExamType(undefined)
                   }}
                   options={deegreListByFilter?.map((item) => ({
-                    value: item.id,
-                    label: item.name
-                  }))}
-                />
-              </Form.Item>
-              <Form.Item name="languageId" label="Ta'lim tili" rules={[{ required: true }]}>
-                <SelectInput
-                  onChange={setLanguageByFilterId}
-                  value={languageIdByFilter}
-                  allowClear={false}
-                  loading={isLoading}
-                  placeholder="Ta'lim tilini tanlang"
-                  onSelect={() => {
-                    admissionForm.resetFields(['specialityId', 'examType'])
-                    setExamType(undefined)
-                  }}
-                  options={languageListByFilter?.map((item) => ({
                     value: item.id,
                     label: item.name
                   }))}

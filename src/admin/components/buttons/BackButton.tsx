@@ -23,7 +23,7 @@ export const BackButton = ({ path, ...props }: Props) => {
   return (
     <Button shape="round" danger htmlType="button" onClick={onBack} {...props}>
       <Undo2 size={18} />
-      {t('action.goBack')}
+      {t('admin.action.goBack')}
     </Button>
   )
 }

@@ -39,20 +39,6 @@ export const useMenu = (): MenuType[] => {
         key: paths.applications,
         icon: <ClipboardList size={18} />,
         permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK, RoleEnum.ADMIN],
-        children: [
-          {
-            label: t('admin.menu.all_applications'),
-            key: paths.applications,
-            icon: <Minus size={18} />,
-            permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK, RoleEnum.ADMIN]
-          },
-          // {
-          //   label: t('admin.menu.offlineExam'),
-          //   key: paths.offlineExam,
-          //   icon: <Minus size={18} />,
-          //   permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK, RoleEnum.ADMIN]
-          // }
-        ]
       },
       // {
       //   label: t('admin.menu.online_applications_results'),
@@ -171,42 +157,6 @@ export const useMenu = (): MenuType[] => {
         icon: <Settings size={18} />,
         permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK],
         children: [
-          // {
-          //   label: t('admin.menu.about'),
-          //   key: paths.aboutOtm,
-          //   icon: <Minus size={18} />,
-          //   permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK]
-          // },
-          // {
-          //   label: t('admin.menu.admissionDates'),
-          //   key: paths.admissionDeadlines,
-          //   icon: <Minus size={18} />,
-          //   permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK]
-          // },
-          // {
-          //   label: t('admin.menu.links'),
-          //   key: paths.links,
-          //   icon: <Minus size={18} />,
-          //   permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK]
-          // },
-          // {
-          //   label: t('admin.menu.contractTemplates'),
-          //   key: paths.contractTemplates,
-          //   icon: <Minus size={18} />,
-          //   permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK]
-          // },
-          // {
-          //   label: t('admin.menu.contractPrices'),
-          //   key: paths.contractPrices,
-          //   icon: <Minus size={18} />,
-          //   permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK]
-          // },
-          // {
-          //   label: t('admin.menu.educationPeriod'),
-          //   key: paths.educationPeriod,
-          //   icon: <Minus size={18} />,
-          //   permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK]
-          // },
           {
             label: t('admin.menu.users'),
             key: paths.users,

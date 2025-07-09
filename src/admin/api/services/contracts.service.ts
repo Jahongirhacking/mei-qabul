@@ -77,8 +77,19 @@ export const usePlannedExam = (options: MutationOptions<PlannedExamDto, BaseResp
 export const useUpdateEnContractPrices = (options: MutationOptions<unknown, BaseResponse<void>>) =>
   useCreate<BaseResponse<void>, unknown>('/contract-price', options)
 
-export const useRejectApplications = (options: MutationOptions<number[], BaseResponse<void>>) =>
-  useCreate<BaseResponse<void>, number[]>('/admin/application/reject', options)
+export const useApproveOrRejectApplications = (
+  options: MutationOptions<{ id: number; isApprove: boolean; message: string }, BaseResponse<void>>
+) => {
+  return useMutation({
+    mutationFn: ({ id, isApprove, ...body }) =>
+      httpService.put<BaseResponse<void>, { message: string }>(
+        `/admin/application/${id}/approve-reject?isApprove=${isApprove}`,
+        body
+      ),
+    onError: errorHandler,
+    ...options
+  })
+}
 
 export const useCancelContract = (options: MutationOptions<number[], BaseResponse<void>>) => {
   return useMutation({
@@ -147,7 +158,7 @@ export const useDownloadExcelApplications = (
   options: MutationOptions<IDownloadExcelApplicationForCallCenterOptions, Blob>
 ) =>
   useDownloadExcel<Blob, IDownloadExcelApplicationForCallCenterOptions>(
-    '/call-center/applications/excel',
+    '/admin/applications/excel',
     options
   )
 
@@ -243,4 +254,4 @@ export const useUpdateContract = (
 
 export const useCreateApplications = (
   options: MutationOptions<ICreateApplicationDto, BaseResponse<void>>
-) => useCreate<BaseResponse<void>, ICreateApplicationDto>('/admin/application', options)
+) => useCreate<BaseResponse<void>, ICreateApplicationDto>('/application', options)

@@ -18,7 +18,7 @@ import GraphInfoCard from '@/admin/components/graphInfoCard/graphInfoCard'
 import { Col, Row } from 'antd'
 
 export default function StatisticsPage() {
-  const universityCode = Number(useAuthStore((state) => state.user.universityCode))
+  const universityCode = Number(useAuthStore((state) => state.user?.universityCode))
   const { data: examType, isFetching: loadingExamType } = useGetAppCountByExamType({
     universityCode
   })

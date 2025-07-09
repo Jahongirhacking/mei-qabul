@@ -7,17 +7,14 @@ import {
   useGetEduDegreesListByFilter,
   useGetEduLanguagesList,
   useGetEduLanguagesListByFilter,
-  useGetEduLevelsList,
-  useGetEduTypesList,
-  useGetSpecialtiesList,
+  useGetEduLevelsList, useGetSpecialtiesList,
   useGetSpecialtiesListByFilter
 } from '@/admin/api/services/common.service'
 import {
+  useApproveOrRejectApplications,
   useAproveRecommendation,
   useAproveTargetApplication,
   useDownloadExcelApplications,
-  useGetApplicationById,
-  useRejectApplications,
   useRejectTargetApplication,
   useUpdateApplication
 } from '@/admin/api/services/contracts.service'
@@ -27,8 +24,6 @@ import paths from '@/admin/app/router/paths'
 import { useAuthStore } from '@/admin/app/store/authStore'
 import { Container } from '@/admin/components/Container'
 import { CustomModal } from '@/admin/components/CustomModal'
-import RadioGroupComponent from '@/admin/components/RadiGroupComponent/RadioGroupComponent'
-import { EditIconButton } from '@/admin/components/buttons/EditIconButton'
 import { SearchInput } from '@/admin/components/filters/SearchInput'
 import { PhoneFormItem } from '@/admin/components/formItems/PhoneFormItem'
 import { SinglePdfUploadFormItem } from '@/admin/components/formItems/SinglePdfUploadFormItem'
@@ -42,30 +37,20 @@ import { IGetApplicationsForCallCenterResponse } from '@/admin/types/Classificat
 import { IUpdateApplicationDto } from '@/admin/types/Contracts'
 import { AdmissionTypeIdEnum, ApplicationStatusEnum } from '@/admin/types/enum'
 import {
-  applicationStatusList,
-  examStatusList,
-  examTypeList,
-  getApplicationStatusColor,
+  applicationStatusList, getApplicationStatusColor,
   getApplicationStatusName,
   openLink
 } from '@/admin/utils/constants'
 import { clearPhoneMask, formatToPhoneMask } from '@/admin/utils/format'
 import { successHandler } from '@/admin/utils/lib'
 import {
-  Button,
-  Descriptions,
-  Flex,
+  Button, Flex,
   Form,
   FormInstance,
   Input,
-  InputNumber,
-  Modal,
-  Space,
-  Spin,
-  TableColumnsType
+  InputNumber, TableColumnsType
 } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
-import { DescriptionsProps } from 'antd/lib'
 import { CloudDownload, Download, Eye } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -108,6 +93,8 @@ export default function ApplicationsPage() {
   const { onCreate, isOpen, closeModal, form } = useModalCRUD<P>()
   const navigate = useNavigate()
   const user = useAuthStore((state) => state.user)
+
+  console.log(applicationId);
 
   const [phoneForm] = Form.useForm()
   const [adviceForm] = Form.useForm()
@@ -170,18 +157,19 @@ export default function ApplicationsPage() {
       !!eduTypeIdByFilter && !!eduLevelIdByFilter && !!languageIdByFilter && !!degreeIdByFilter
   })
 
-  const { data: eduTypeList } = useGetEduTypesList()
+  // const { data: eduTypeList } = useGetEduTypesList()
   const { isAdmin, isSuperAdmin } = usePermission()
   const confirm = useConfirm()
 
-  const { data: application, isLoading } = useGetApplicationById(applicationId)
+  // const { data: application, isLoading } = useGetApplicationById(applicationId)
 
-  const { create: rejectApplications, isCreating: isRejecting } = useRejectApplications({
+  const { mutate: approveOrRejectApplications, isPending: isActionPending } = useApproveOrRejectApplications({
     onSuccess: (data) => {
       successHandler(data)
       refetch()
     }
   })
+
 
   const { update: updatePhoneNumber, isUpdating: isUpdatingPhoneNumber } = useUpdateUserPhoneNumber(
     {
@@ -232,24 +220,6 @@ export default function ApplicationsPage() {
     }
   )
 
-  const handleEditApplicationButton = (record: IGetApplicationsForCallCenterResponse) => {
-    setApplicationIdForUpdate(record.id)
-    setAdmissionTypeIdByFilter(record.admissionTypeId)
-    setDegreeIdByFilter(record.degreeId)
-    setSpecialityIdByFilter(record.admissionTypeId)
-    setLanguageByFilterId(record.languageId)
-    setEduLevelIdByFilter(record.eduLevelId)
-    setEduTypeIdByFilter(record.eduTypeId)
-    setAplicationModalOpen(true)
-    applicationForm.setFieldsValue({
-      degreeId: record.degreeId,
-      specialityId: record.specialityId,
-      languageId: record.languageId,
-      admissionTypeId: record.admissionTypeId,
-      eduLevelId: record.eduLevelId
-    })
-  }
-
   const columns: TableColumnsType<IGetApplicationsForCallCenterResponse> = [
     {
       title: 'FIO',
@@ -296,48 +266,15 @@ export default function ApplicationsPage() {
       dataIndex: 'degree'
     },
     {
-      title: 'Tili',
-      dataIndex: 'language'
-    },
-    {
-      title: 'Imtihon bali',
-      dataIndex: 'score'
-    },
-    {
-      title: 'Imtihon turi',
-      dataIndex: 'examType'
-    },
-    {
-      title: 'Shartnomasi',
-      dataIndex: 'existsContract',
-      render: (existsContract) => (
-        <p className={existsContract ? 'confirmed' : 'rejected'}>
-          {existsContract ? 'Mavjud' : 'Mavjud emas'}
-        </p>
-      )
-    },
-    {
       title: 'Qayd varaqasi',
       dataIndex: 'url',
       render: (url: string) => (
-        <Button icon={<Download size={16} />}>
+        <Button icon={<Download size={16} />} disabled={!url}>
           <a href={url} download target="_blank" rel="noopener noreferrer">
             Yuklash
           </a>
         </Button>
       )
-    },
-    {
-      title: 'Javoblar varaqasi',
-      dataIndex: 'answerSheetUrl',
-      render: (answerSheetUrl: string) =>
-        answerSheetUrl && (
-          <Button icon={<Download size={16} />}>
-            <a href={answerSheetUrl} download target="_blank" rel="noopener noreferrer">
-              Yuklash
-            </a>
-          </Button>
-        )
     },
     {
       title: 'Ariza holati',
@@ -363,38 +300,38 @@ export default function ApplicationsPage() {
         }
       ]
       : []),
-    ...(isSuperAdmin ||
-      (user?.universityId === 101 && isAdmin) ||
-      (user?.universityId === 99 && isAdmin) ||
-      (user?.universityId === 9 && isAdmin)
-      ? [
-        {
-          title: 'Amallar',
-          dataIndex: 'id',
-          render: (_: number, record: IGetApplicationsForCallCenterResponse) => {
-            return (
-              <Space>
-                {record.status === ApplicationStatusEnum.APPROVED && !record.existsContract && (
-                  <EditIconButton onClick={() => handleEditApplicationButton(record)} />
-                )}
-                {(admissionTypeId === AdmissionTypeIdEnum.TRANSFER ||
-                  admissionTypeId === AdmissionTypeIdEnum.SECOND_DEGREE ||
-                  admissionTypeId === AdmissionTypeIdEnum.TECHNICAL ||
-                  admissionTypeId === AdmissionTypeIdEnum.MAGISTR) && (
-                    <Button
-                      icon={<Eye size={16} />}
-                      onClick={() => {
-                        showModal()
-                        setApplicationId(record.id)
-                      }}
-                    />
-                  )}
-              </Space>
-            )
-          }
-        }
-      ]
-      : [])
+    // ...(isSuperAdmin ||
+    //   (user?.universityId === 101 && isAdmin) ||
+    //   (user?.universityId === 99 && isAdmin) ||
+    //   (user?.universityId === 9 && isAdmin)
+    //   ? [
+    //     {
+    //       title: 'Amallar',
+    //       dataIndex: 'id',
+    //       render: (_: number, record: IGetApplicationsForCallCenterResponse) => {
+    //         return (
+    //           <Space>
+    //             {record.status === ApplicationStatusEnum.APPROVED && !record.existsContract && (
+    //               <EditIconButton onClick={() => handleEditApplicationButton(record)} />
+    //             )}
+    //             {(admissionTypeId === AdmissionTypeIdEnum.TRANSFER ||
+    //               admissionTypeId === AdmissionTypeIdEnum.SECOND_DEGREE ||
+    //               admissionTypeId === AdmissionTypeIdEnum.TECHNICAL ||
+    //               admissionTypeId === AdmissionTypeIdEnum.MAGISTR) && (
+    //                 <Button
+    //                   icon={<Eye size={16} />}
+    //                   onClick={() => {
+    //                     showModal()
+    //                     setApplicationId(record.id)
+    //                   }}
+    //                 />
+    //               )}
+    //           </Space>
+    //         )
+    //       }
+    //     }
+    //   ]
+    //   : [])
   ]
 
   const { download, isDownload } = useDownloadExcelApplications({
@@ -405,14 +342,26 @@ export default function ApplicationsPage() {
 
   const handleReject = async () => {
     const isConfirmed = await confirm({
-      title: 'Belgilangan arizani bekor qilishni tasdiqlaysizmi',
+      title: 'Belgilangan arizani bekor qilasizmi',
       content: '',
       okText: 'Tasdiqlash',
       cancelText: 'Bekor qilish',
       okType: 'danger'
     })
 
-    if (isConfirmed && rowId) rejectApplications([rowId])
+    if (isConfirmed && rowId) approveOrRejectApplications({ id: applicationId || 0, isApprove: false, message: 'cancel' })
+  }
+
+  const handleApprove = async () => {
+    const isConfirmed = await confirm({
+      title: 'Belgilangan arizani tasdiqlaysizmi',
+      content: '',
+      okText: 'Tasdiqlash',
+      cancelText: 'Bekor qilish',
+      okType: 'primary'
+    })
+
+    if (isConfirmed && rowId) approveOrRejectApplications({ id: applicationId || 0, isApprove: true, message: 'approve' })
   }
 
   const handleRejectApplications = () => {
@@ -423,16 +372,12 @@ export default function ApplicationsPage() {
     }
   }
 
-  const handleApprove = () => {
+
+  const handleApproveApplications = () => {
     if (!rowId) {
       toast.error('Iltimos avval kimni arizasini tasdiqlashni jadvaldan tanlang')
     } else {
-      const elem = data?.content.find((item) => item.id === rowId)
-      if (elem?.availableRecommendation) {
-        setAdviceModalOpen(true)
-      } else {
-        toast.error("Bu yo'nalish uchun tavsiya belgilanmagan")
-      }
+      handleApprove();
     }
   }
 
@@ -449,158 +394,158 @@ export default function ApplicationsPage() {
     setIsModalOpen(false)
   }
 
-  const items: DescriptionsProps['items'] = [
-    {
-      key: '0',
-      label: 'F.I.O',
-      children: (
-        <p>
-          {application?.data?.lastName +
-            ' ' +
-            application?.data?.firstName +
-            ' ' +
-            application?.data?.fatherName}
-        </p>
-      )
-    },
-    ...(admissionTypeId !== AdmissionTypeIdEnum.SECOND_DEGREE &&
-      admissionTypeId !== AdmissionTypeIdEnum.TECHNICAL &&
-      admissionTypeId !== AdmissionTypeIdEnum.MAGISTR
-      ? [
-        {
-          key: '1',
-          label: "Ta'lim shakli",
-          children: (
-            <p>
-              {admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION
-                ? application?.data?.degree
-                : application?.data?.oldEdu?.degree}
-            </p>
-          )
-        }
-      ]
-      : []),
-    ...(admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION ||
-      admissionTypeId === AdmissionTypeIdEnum.SECOND_DEGREE ||
-      admissionTypeId === AdmissionTypeIdEnum.TECHNICAL ||
-      admissionTypeId === AdmissionTypeIdEnum.MAGISTR
-      ? [
-        {
-          key: '10',
-          label:
-            admissionTypeId === AdmissionTypeIdEnum.TECHNICAL ? 'Texnikum nomi' : 'Universiteti',
-          children: <p>{application?.data?.oldEdu?.university}</p>
-        },
-        {
-          key: '4',
-          label: 'Bitirgan yili',
-          children: <p>{application?.data?.oldEdu?.graduatedYear}</p>
-        },
-        {
-          key: '5',
-          label: 'Diplom fayli',
-          children: application?.data?.oldEdu?.diploma ? (
-            <Button icon={<Download size={16} />}>
-              <a
-                href={application?.data?.oldEdu?.diploma}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Yuklash
-              </a>
-            </Button>
-          ) : (
-            <p>Mavjud emas</p>
-          )
-        }
-      ]
-      : []),
-    {
-      key: '3',
-      label: 'Mutaxassisligi',
-      children: (
-        <p>
-          {admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION
-            ? application?.data?.speciality
-            : application?.data?.oldEdu?.speciality}
-        </p>
-      )
-    },
-    ...(admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION
-      ? [
-        {
-          key: '2',
-          label: 'Tili',
-          children: <p>{application?.data?.language}</p>
-        },
+  // const items: DescriptionsProps['items'] = [
+  //   {
+  //     key: '0',
+  //     label: 'F.I.O',
+  //     children: (
+  //       <p>
+  //         {application?.data?.lastName +
+  //           ' ' +
+  //           application?.data?.firstName +
+  //           ' ' +
+  //           application?.data?.fatherName}
+  //       </p>
+  //     )
+  //   },
+  //   ...(admissionTypeId !== AdmissionTypeIdEnum.SECOND_DEGREE &&
+  //     admissionTypeId !== AdmissionTypeIdEnum.TECHNICAL &&
+  //     admissionTypeId !== AdmissionTypeIdEnum.MAGISTR
+  //     ? [
+  //       {
+  //         key: '1',
+  //         label: "Ta'lim shakli",
+  //         children: (
+  //           <p>
+  //             {admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION
+  //               ? application?.data?.degree
+  //               : application?.data?.oldEdu?.degree}
+  //           </p>
+  //         )
+  //       }
+  //     ]
+  //     : []),
+  //   ...(admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION ||
+  //     admissionTypeId === AdmissionTypeIdEnum.SECOND_DEGREE ||
+  //     admissionTypeId === AdmissionTypeIdEnum.TECHNICAL ||
+  //     admissionTypeId === AdmissionTypeIdEnum.MAGISTR
+  //     ? [
+  //       {
+  //         key: '10',
+  //         label:
+  //           admissionTypeId === AdmissionTypeIdEnum.TECHNICAL ? 'Texnikum nomi' : 'Universiteti',
+  //         children: <p>{application?.data?.oldEdu?.university}</p>
+  //       },
+  //       {
+  //         key: '4',
+  //         label: 'Bitirgan yili',
+  //         children: <p>{application?.data?.oldEdu?.graduatedYear}</p>
+  //       },
+  //       {
+  //         key: '5',
+  //         label: 'Diplom fayli',
+  //         children: application?.data?.oldEdu?.diploma ? (
+  //           <Button icon={<Download size={16} />}>
+  //             <a
+  //               href={application?.data?.oldEdu?.diploma}
+  //               download
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               Yuklash
+  //             </a>
+  //           </Button>
+  //         ) : (
+  //           <p>Mavjud emas</p>
+  //         )
+  //       }
+  //     ]
+  //     : []),
+  //   {
+  //     key: '3',
+  //     label: 'Mutaxassisligi',
+  //     children: (
+  //       <p>
+  //         {admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION
+  //           ? application?.data?.speciality
+  //           : application?.data?.oldEdu?.speciality}
+  //       </p>
+  //     )
+  //   },
+  //   ...(admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION
+  //     ? [
+  //       {
+  //         key: '2',
+  //         label: 'Tili',
+  //         children: <p>{application?.data?.language}</p>
+  //       },
 
-        {
-          key: '6',
-          label: 'Tavsiya fayli',
-          children: application?.data?.oldEdu?.recommendation ? (
-            <Button icon={<Download size={16} />}>
-              <a
-                href={application?.data?.oldEdu?.recommendation}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Yuklash
-              </a>
-            </Button>
-          ) : (
-            <p>Mavjud emas</p>
-          )
-        },
-        {
-          key: '7',
-          label: 'Ish tajribasi fayli',
-          children: application?.data?.oldEdu?.workExperienceReference ? (
-            <Button icon={<Download size={16} />}>
-              <a
-                href={application?.data?.oldEdu?.workExperienceReference}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Yuklash
-              </a>
-            </Button>
-          ) : (
-            <p>Mavjud emas</p>
-          )
-        }
-      ]
-      : []),
-    ...(admissionTypeId === AdmissionTypeIdEnum.TRANSFER
-      ? [
-        {
-          key: '8',
-          label: 'Kursi',
-          children: <p>{application?.data?.oldEdu?.eduLevel}</p>
-        },
-        {
-          key: '9',
-          label: 'Transkript fayli',
-          children: application?.data?.oldEdu?.transcript ? (
-            <Button icon={<Download size={16} />}>
-              <a
-                href={application?.data?.oldEdu?.transcript}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Yuklash
-              </a>
-            </Button>
-          ) : (
-            <p>Mavjud emas</p>
-          )
-        }
-      ]
-      : [])
-  ]
+  //       {
+  //         key: '6',
+  //         label: 'Tavsiya fayli',
+  //         children: application?.data?.oldEdu?.recommendation ? (
+  //           <Button icon={<Download size={16} />}>
+  //             <a
+  //               href={application?.data?.oldEdu?.recommendation}
+  //               download
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               Yuklash
+  //             </a>
+  //           </Button>
+  //         ) : (
+  //           <p>Mavjud emas</p>
+  //         )
+  //       },
+  //       {
+  //         key: '7',
+  //         label: 'Ish tajribasi fayli',
+  //         children: application?.data?.oldEdu?.workExperienceReference ? (
+  //           <Button icon={<Download size={16} />}>
+  //             <a
+  //               href={application?.data?.oldEdu?.workExperienceReference}
+  //               download
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               Yuklash
+  //             </a>
+  //           </Button>
+  //         ) : (
+  //           <p>Mavjud emas</p>
+  //         )
+  //       }
+  //     ]
+  //     : []),
+  //   ...(admissionTypeId === AdmissionTypeIdEnum.TRANSFER
+  //     ? [
+  //       {
+  //         key: '8',
+  //         label: 'Kursi',
+  //         children: <p>{application?.data?.oldEdu?.eduLevel}</p>
+  //       },
+  //       {
+  //         key: '9',
+  //         label: 'Transkript fayli',
+  //         children: application?.data?.oldEdu?.transcript ? (
+  //           <Button icon={<Download size={16} />}>
+  //             <a
+  //               href={application?.data?.oldEdu?.transcript}
+  //               download
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //             >
+  //               Yuklash
+  //             </a>
+  //           </Button>
+  //         ) : (
+  //           <p>Mavjud emas</p>
+  //         )
+  //       }
+  //     ]
+  //     : [])
+  // ]
 
   const submit = (values: FormValues) => {
     rejectTargetApplication(values)
@@ -647,33 +592,33 @@ export default function ApplicationsPage() {
               value: item.id
             }))}
           />
-          <SelectInput
+          {/* <SelectInput
             onChange={setExamType}
             value={examType}
             placeholder="Imtihon turi"
             options={examTypeList}
-          />
-          <SelectInput
+          /> */}
+          {/* <SelectInput
             style={{ width: '180px' }}
             onChange={setExamStatus}
             value={examStatus}
             placeholder="Imtihon holati"
             options={examStatusList}
-          />
-          <SelectInput
+          /> */}
+          {/* <SelectInput
             style={{ width: '175px' }}
             onChange={setEduTypeId}
             placeholder="Ta'lim turini tanlang"
             value={eduTypeId}
             options={eduTypeList?.map((item) => ({ value: item.id, label: item.name }))}
-          />
-          <SelectInput
+          /> */}
+          {/* <SelectInput
             style={{ width: '125px' }}
             onChange={setLanguageId}
             placeholder="Tilni tanlang"
             value={languageId}
             options={languageList?.map((item) => ({ value: item.id, label: item.name }))}
-          />
+          /> */}
           <SelectInput
             style={{ width: '180px' }}
             onChange={setDegreeId}
@@ -706,10 +651,24 @@ export default function ApplicationsPage() {
                 <Button
                   type="primary"
                   danger
-                  loading={isRejecting}
+                  loading={isActionPending}
                   onClick={handleRejectApplications}
                 >
                   Arizani bekor qilish
+                </Button>
+              </>
+            )}
+
+          {!isAdmin &&
+            admissionTypeId !== AdmissionTypeIdEnum.TRANSFER &&
+            admissionTypeId !== AdmissionTypeIdEnum.TARGET_ADMISSION && (
+              <>
+                <Button
+                  type="primary"
+                  loading={isActionPending}
+                  onClick={handleApproveApplications}
+                >
+                  Arizani tasdiqlash
                 </Button>
               </>
             )}
@@ -730,7 +689,7 @@ export default function ApplicationsPage() {
         </Flex>
       }
     >
-      <RadioGroupComponent setAdmissionTypeId={setAdmissionTypeId} />
+      {/* <RadioGroupComponent setAdmissionTypeId={setAdmissionTypeId} /> */}
       <PaginationTable<IGetApplicationsForCallCenterResponse>
         loading={isFetching}
         total={data?.page.totalElements}
@@ -742,15 +701,16 @@ export default function ApplicationsPage() {
           type: 'radio',
           selectedRowKeys: rowId !== undefined ? [rowId] : [],
           onChange: (selectedRowKeys: React.Key[]) => {
-            setRowId(selectedRowKeys[0] as number)
+            setRowId(selectedRowKeys[0] as number);
+            setApplicationId(selectedRowKeys[0] as number);
           },
           getCheckboxProps: (record: IGetApplicationsForCallCenterResponse) => ({
-            disabled: record.existsContract || record.status === ApplicationStatusEnum.CANCELLED
+            disabled: record.existsContract || record.status === ApplicationStatusEnum.CANCELLED || record.status === ApplicationStatusEnum.APPROVED
           })
         }}
       />
 
-      <Modal
+      {/* <Modal
         width={600}
         title={
           admissionTypeId === AdmissionTypeIdEnum.TARGET_ADMISSION ||
@@ -794,7 +754,7 @@ export default function ApplicationsPage() {
             styles={{ label: { fontWeight: 'bold' }, content: { textAlign: 'end' } }}
           />
         )}
-      </Modal>
+      </Modal> */}
 
       <CustomModal
         title="Arizani bekor qilish modali"

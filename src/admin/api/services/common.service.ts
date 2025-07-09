@@ -43,7 +43,7 @@ export const useGetEduDegreesListByFilter = (options: IDegreeOptions) =>
 
 export const useGetSpecialtiesList = () => useGet<ISpecialtyList[]>(`/speciality/list`)
 export const useGetSpecialtiesListByFilter = (options: ISpecialityOptions) =>
-  useGet<ISpecialityListResponse[]>(`/admission/by-classificatory/specialities`, options.params, {
+  useGet<ISpecialityListResponse[]>(`/admission/specialities/by-classificatory`, options.params, {
     enabled: options.enabled
   })
 

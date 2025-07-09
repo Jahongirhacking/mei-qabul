@@ -4,7 +4,6 @@ import { Container } from '@/admin/components/Container'
 import { Tabs, TabsProps } from 'antd'
 
 import FailedExams from './FailedExams'
-import NewsExams from './NewsExams'
 import PassedExams from './PassedExams'
 import PlannedExams from './PlannedExams'
 import RejectedApplications from './RejectedApplications'
@@ -12,11 +11,6 @@ import RejectedApplications from './RejectedApplications'
 export default function OflineExamsPage() {
   const [tab, setTab] = useState<string>('NEW')
   const items: TabsProps['items'] = [
-    {
-      key: 'NEW',
-      label: 'Yangilar',
-      children: <NewsExams examStatus={tab} />
-    },
     {
       key: 'REJECTED',
       label: 'Bekor qilingan arizalar',
