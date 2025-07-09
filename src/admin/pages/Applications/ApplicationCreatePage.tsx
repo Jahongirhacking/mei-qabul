@@ -12,6 +12,7 @@ import { PhoneFormItem } from '@/admin/components/formItems/PhoneFormItem'
 import { PassportForm } from '@/admin/components/forms/PassportForm'
 import { SelectInput } from '@/admin/components/inputs/SelectInput'
 import { ICreateApplicationDto } from '@/admin/types/Contracts'
+import { EduTypeIdEnum } from '@/admin/types/enum'
 import { PassportResponse } from '@/admin/types/User'
 import { years } from '@/admin/utils/cn'
 import { clearPhoneMask } from '@/admin/utils/format'
@@ -54,7 +55,7 @@ export default function ApplicationCreatePage() {
     params: {
       admissionTypeId: 1,
       eduLevelId: 11,
-      eduTypeId: 11
+      eduTypeId: EduTypeIdEnum.BAKALAVR
     },
     enabled: true
   })

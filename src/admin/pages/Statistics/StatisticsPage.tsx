@@ -1,9 +1,6 @@
 import {
   useGetAppCountByAdmissionType,
-  useGetAppCountByEduForm,
-  useGetAppCountByExamType,
   useGetAppCountByGender,
-  useGetAppCountByLanguage,
   useGetAppCountByLastTenDay,
   useGetAppCountByRegion,
   useGetAppCountBySpeciality,
@@ -15,24 +12,16 @@ import BarChart from '@/admin/components/charts/BarChart'
 import BarChartCategory from '@/admin/components/charts/BarChartCategory'
 import PieChart from '@/admin/components/charts/Piechart'
 import GraphInfoCard from '@/admin/components/graphInfoCard/graphInfoCard'
+import { EduTypeIdEnum } from '@/admin/types/enum'
 import { Col, Row } from 'antd'
 
 export default function StatisticsPage() {
   const universityCode = Number(useAuthStore((state) => state.user?.universityCode))
-  const { data: examType, isFetching: loadingExamType } = useGetAppCountByExamType({
-    universityCode
-  })
   const { data: gender, isFetching: loadingGender } = useGetAppCountByGender({
     universityCode
   })
   const { data: speciality, isFetching: loadingSpeciality } = useGetAppCountBySpeciality({
-    universityCode
-  })
-  const { data: eduForm, isFetching: loadingEduForm } = useGetAppCountByEduForm({
-    universityCode
-  })
-  const { data: language, isFetching: loadingLanguage } = useGetAppCountByLanguage({
-    universityCode
+    eduTypeId: EduTypeIdEnum.BAKALAVR
   })
   const { data: tenDay, isFetching: loadingLastTenDay } = useGetAppCountByLastTenDay({
     universityCode
@@ -54,23 +43,6 @@ export default function StatisticsPage() {
   return (
     <>
       <Row gutter={[16, 16]}>
-        <Col xs={24} xxl={12}>
-          <GraphInfoCard title="Imtihon turi bo'yicha ariza topshirganlar" graphHeight={336}>
-            <BarChartCategory
-              barWidth={35}
-              seriesArr={[
-                {
-                  data: examType ? examType.map((item) => item.count) : [],
-                  name: 'Abiturientlar soni'
-                }
-              ]}
-              legendData={examType ? examType.map((item) => item.name) : []}
-              color={['#1677ff']}
-              loading={loadingExamType}
-            />
-          </GraphInfoCard>
-        </Col>
-
         <Col xs={24} xxl={12}>
           <GraphInfoCard title="Jinsi bo'yicha ariza topshirganlar" graphHeight={336}>
             <PieChart
@@ -103,34 +75,6 @@ export default function StatisticsPage() {
                 }
               ]}
               color={['#faad14']}
-            />
-          </GraphInfoCard>
-        </Col>
-
-        <Col xs={24} xxl={12}>
-          <GraphInfoCard title="Ta'lim shakllari kesimida ariza topshirganlar" graphHeight={336}>
-            <BarChart
-              legendData={eduForm ? eduForm.map((item) => item.name) : []}
-              loading={loadingEduForm}
-              seriesArr={[
-                {
-                  data: eduForm ? eduForm.map((item) => item.count) : [],
-                  name: 'Abiturientlar soni'
-                }
-              ]}
-              color={['#5cdbd3']}
-            />
-          </GraphInfoCard>
-        </Col>
-
-        <Col xs={24} xxl={12}>
-          <GraphInfoCard title="Ta'lim tili bo'yicha ariza topshirganlar" graphHeight={336}>
-            <PieChart
-              loading={loadingLanguage}
-              legendBottom={0}
-              seriesArr={
-                language ? language.map((item) => ({ name: item.name, value: item.count })) : []
-              }
             />
           </GraphInfoCard>
         </Col>

@@ -20,7 +20,6 @@ import {
 } from '@/admin/api/services/contracts.service'
 import { uploadFile } from '@/admin/api/services/upload.service'
 import { useUpdateUserPhoneNumber } from '@/admin/api/services/user.service'
-import paths from '@/admin/app/router/paths'
 import { useAuthStore } from '@/admin/app/store/authStore'
 import { Container } from '@/admin/components/Container'
 import { CustomModal } from '@/admin/components/CustomModal'
@@ -43,6 +42,7 @@ import {
 } from '@/admin/utils/constants'
 import { clearPhoneMask, formatToPhoneMask } from '@/admin/utils/format'
 import { successHandler } from '@/admin/utils/lib'
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
 import {
   Button, Flex,
   Form,
@@ -75,7 +75,7 @@ export default function ApplicationsPage() {
   const [applicationId, setApplicationId] = useState<number>()
   const [applicationIdForUpdate, setApplicationIdForUpdate] = useState<number>()
   const [examStatus, setExamStatus] = useState<string>()
-  const [admissionTypeId, setAdmissionTypeId] = useState<number>()
+  const [admissionTypeId, setAdmissionTypeId] = useState<number>(1)
   const [admissionTypeIdByFilter, setAdmissionTypeIdByFilter] = useState<number>()
   const [statusId, setStatusId] = useState<number | undefined>()
   const [eduLevelIdByFilter, setEduLevelIdByFilter] = useState<number>()
@@ -651,6 +651,7 @@ export default function ApplicationsPage() {
                 <Button
                   type="primary"
                   danger
+                  icon={<CloseCircleOutlined />}
                   loading={isActionPending}
                   onClick={handleRejectApplications}
                 >
@@ -665,6 +666,9 @@ export default function ApplicationsPage() {
               <>
                 <Button
                   type="primary"
+                  variant="solid"
+                  color='blue'
+                  icon={<CheckCircleOutlined />}
                   loading={isActionPending}
                   onClick={handleApproveApplications}
                 >
@@ -672,20 +676,20 @@ export default function ApplicationsPage() {
                 </Button>
               </>
             )}
-
+          {/* 
           {admissionTypeId === AdmissionTypeIdEnum.BAKALAVR &&
             ((isAdmin && user?.universityId === 101) || isSuperAdmin) && (
               <Button type="primary" onClick={handleApprove}>
                 Tavsiya
               </Button>
-            )}
-          {(isAdmin || isSuperAdmin) &&
+            )} */}
+          {/* {(isAdmin || isSuperAdmin) &&
             admissionTypeId === AdmissionTypeIdEnum.BAKALAVR &&
             user?.universityId !== 101 && (
-              <Button type="primary" onClick={() => navigate(paths.application_create)}>
+              <Button type="primary" onClick={() => navigate(paths.application_create)} icon={<PlusCircleOutlined />}>
                 Ariza yaratish
               </Button>
-            )}
+            )} */}
         </Flex>
       }
     >
