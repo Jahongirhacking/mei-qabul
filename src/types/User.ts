@@ -1,5 +1,5 @@
-import { AdmissionStepState } from "@/app/store/admissionStore"
-import { ExamTypeEnum } from "@/types/enum"
+import { AdmissionStepState } from '@/app/store/admissionStore'
+import { ExamTypeEnum } from '@/types/enum'
 
 export type User = {
   id: number
@@ -59,7 +59,7 @@ export interface IContractInfoResponseForQrCode {
   id: number
   language: string
   status: string
-  phoneNumber: any
+  phoneNumber: unknown
   university: string
   pinfl: string
   firstName: string
@@ -69,13 +69,13 @@ export interface IContractInfoResponseForQrCode {
   degree: string
   contractUrl: string
   eduType: string
-  bill: any
+  bill: unknown
   academicYear: string
   eduPeriod: string
   contractNumber: string
   contractSum: number
   specialityCode: string
-  contractTemplateTypeId: any
+  contractTemplateTypeId: unknown
   contractRegisterDate: string
   eduLevel: string
   contractTemplateType: string
@@ -84,25 +84,25 @@ export interface IContractInfoResponseForQrCode {
 export interface IApplicationInfoResponseForQrCode {
   id: number
   language: string
-  comment: any
+  comment: unknown
   url: string
   status: string
-  phoneNumber: any
+  phoneNumber: unknown
   university: string
   pinfl: string
   firstName: string
   lastName: string
   fatherName: string
-  specialityId: any
+  specialityId: unknown
   examType: string
   speciality: string
   degree: string
-  score: any
-  examDate: any
-  examTime: any
+  score: unknown
+  examDate: unknown
+  examTime: unknown
   eduType: string
   specialityCode: string
   admissionType: string
-  examStatus: any
-  examComment: any
+  examStatus: unknown
+  examComment: unknown
 }

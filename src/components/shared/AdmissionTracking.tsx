@@ -12,7 +12,8 @@ import { useAuthStore } from '@/app/store/authStore'
 import AnimatedButton, { AnimatedButtonProps } from '@/components/AnimatedButton'
 import { useTest } from '@/hooks/useTest'
 import { ApplicationStatusEnum, ExamTypeEnum } from '@/types/enum'
-import { Steps } from 'antd'
+import { CheckCircleOutlined, CloseCircleOutlined, SyncOutlined } from '@ant-design/icons'
+import { Steps, Tag } from 'antd'
 import { Download } from 'lucide-react'
 
 export const AdmissionTracking = () => {
@@ -57,25 +58,24 @@ export const AdmissionTracking = () => {
   }
 
   const isApplied: boolean = !!application
-  const isHaveContract: boolean = !!user?.contractUrl
   const examType: ExamTypeEnum = user?.examType
 
   const isOfflineExam = examType === ExamTypeEnum.OFFLINE
 
   const getExamTitle = () => {
-    if (isHaveContract) {
-      return 'Экзамен сдан'
+    if (!application) {
+      return "Вы не подали заявление"
     }
 
-    if (application && application.score) {
-      return 'Экзамен сдан'
+    if (application?.status === ApplicationStatusEnum.APPROVED) {
+      return <Tag icon={<CheckCircleOutlined />} color='success'>Заявление принято</Tag>
     }
 
-    if (isTestStarted && !isTestEnded) {
-      return 'Экзамен сдаётся'
+    if (application?.status === ApplicationStatusEnum.CANCELLED) {
+      return <Tag icon={<CloseCircleOutlined />} color='error'>Заявление не принято</Tag>
     }
 
-    return 'Экзамен не сдан'
+    return <Tag icon={<SyncOutlined spin />} color='processing'>Заявление рассматривается</Tag>
   }
 
   const examDescription = () => {
@@ -124,9 +124,6 @@ export const AdmissionTracking = () => {
   }
 
   const getCurrentStep = () => {
-    if (isHaveContract) {
-      return 2
-    }
     if (application) {
       return 1
     }

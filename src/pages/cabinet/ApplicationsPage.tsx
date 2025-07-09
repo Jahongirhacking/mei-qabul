@@ -178,10 +178,12 @@ export default function ApplicationsPage() {
     <div className="flex-1">
       <h1 className="text-2xl font-bold mb-5">Мои заявления</h1>
 
-      <UserInfoCard
-        title={<Flex align='center' gap={12} wrap>Статус заявления: <Tag color='success'>{application?.status}</Tag></Flex>}
-        items={items}
-      />
+      {application && (
+        <UserInfoCard
+          title={<Flex align='center' gap={12} wrap>Статус заявления: <Tag color='success'>{application?.status}</Tag></Flex>}
+          items={items}
+        />
+      )}
       <div>{renderContent()}</div>
     </div>
   )
