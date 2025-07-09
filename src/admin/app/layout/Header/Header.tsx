@@ -51,7 +51,7 @@ export const Header = React.memo(function Header({ toggle, collapsed }: HeaderPr
   }
 
   const submit = (values: FormValues) => {
-    changeUniversity(values.universityId).then(() => {
+    changeUniversity(values?.universityId).then(() => {
       reload()
       closeModal()
     })
@@ -66,20 +66,20 @@ export const Header = React.memo(function Header({ toggle, collapsed }: HeaderPr
       )}
 
       <div className="max-w-lg text-center">
-        <h1 className="text-lg font-semibold  leading-[1.3rem]">{user.university}</h1>
+        <h1 className="text-lg font-semibold  leading-[1.3rem]">{user?.university}</h1>
       </div>
 
       <Space>
         {isSuperAdmin &&
-          (user.universityId == 99 ||
-            user.universityId == 9 ||
-            user.universityId === 101 ||
-            user.universityId == 43 ||
-            user.universityId == 1000) && (
+          (user?.universityId == 99 ||
+            user?.universityId == 9 ||
+            user?.universityId === 101 ||
+            user?.universityId == 43 ||
+            user?.universityId == 1000) && (
             <Button
               type="primary"
               onClick={() => {
-                form.setFieldValue('universityId', user.universityId)
+                form.setFieldValue('universityId', user?.universityId)
                 onCreate()
               }}
             >
@@ -93,7 +93,7 @@ export const Header = React.memo(function Header({ toggle, collapsed }: HeaderPr
           placement="bottomRight"
           content={
             <div className="flex flex-col gap-2">
-              {user.roles?.map((role, index) => (
+              {user?.roles?.map((role, index) => (
                 <Button
                   key={index}
                   type={userRole == role.name ? 'primary' : 'default'}
@@ -114,7 +114,7 @@ export const Header = React.memo(function Header({ toggle, collapsed }: HeaderPr
           <div className="flex items-center gap-3 border-l pl-4">
             <div className="hidden sm:block text-right">
               <div className="text-md font-semibold">
-                {user.lastName} {user.firstName} {user.fatherName}
+                {user?.lastName} {user?.firstName} {user?.fatherName}
               </div>
               <div className="text-xs text-gray-500">{userRole}</div>
             </div>
@@ -138,7 +138,7 @@ export const Header = React.memo(function Header({ toggle, collapsed }: HeaderPr
               allowClear={false}
               placeholder="OTMni tanlang"
               options={
-                user.universityId == 99 || user.universityId == 9 || user.universityId === 101
+                user?.universityId == 99 || user?.universityId == 9 || user?.universityId === 101
                   ? otmListForTiuSuperAdmin
                   : otmListForMenejmentSuperAdmin
               }

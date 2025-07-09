@@ -364,9 +364,9 @@ export default function ApplicationsPage() {
       ]
       : []),
     ...(isSuperAdmin ||
-      (user.universityId === 101 && isAdmin) ||
-      (user.universityId === 99 && isAdmin) ||
-      (user.universityId === 9 && isAdmin)
+      (user?.universityId === 101 && isAdmin) ||
+      (user?.universityId === 99 && isAdmin) ||
+      (user?.universityId === 9 && isAdmin)
       ? [
         {
           title: 'Amallar',
@@ -715,14 +715,14 @@ export default function ApplicationsPage() {
             )}
 
           {admissionTypeId === AdmissionTypeIdEnum.BAKALAVR &&
-            ((isAdmin && user.universityId === 101) || isSuperAdmin) && (
+            ((isAdmin && user?.universityId === 101) || isSuperAdmin) && (
               <Button type="primary" onClick={handleApprove}>
                 Tavsiya
               </Button>
             )}
           {(isAdmin || isSuperAdmin) &&
             admissionTypeId === AdmissionTypeIdEnum.BAKALAVR &&
-            user.universityId !== 101 && (
+            user?.universityId !== 101 && (
               <Button type="primary" onClick={() => navigate(paths.application_create)}>
                 Ariza yaratish
               </Button>

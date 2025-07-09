@@ -101,7 +101,7 @@ export const useCreateAdmissionDeadlines = (
 
 export const useGetApplicationsForCallCenter = (options: IGetApplicationsForCallCenterOptions) =>
   useGet<Pagination<IGetApplicationsForCallCenterResponse[]>, IGetApplicationsForCallCenterOptions>(
-    '/call-center/applicant/registration-forms',
+    '/admin/applications',
     options
   )
 

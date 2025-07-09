@@ -61,7 +61,7 @@ export const useGetContracts = (options: IGetContractsOptions) =>
 
 export const useGetApplications = (options: IGetApplicationsOptions) =>
   useGet<Pagination<IGetApplicationsResponse[]>, IGetApplicationsOptions>(
-    '/admin/applicant/registration-forms',
+    '/admin/applications',
     options
   )
 

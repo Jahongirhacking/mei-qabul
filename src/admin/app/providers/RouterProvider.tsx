@@ -11,13 +11,13 @@ export function Router() {
       <Route
         path="/admin"
         element={
-          <RequireAuth>
-            <Layout />
-          </RequireAuth>
+          <Layout />
         }
       >
         {privateRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <RequireAuth>
+            <Route key={route.path} path={route.path} element={route.element} />
+          </RequireAuth>
         ))}
       </Route>
 

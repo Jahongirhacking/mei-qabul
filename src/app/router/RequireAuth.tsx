@@ -7,8 +7,9 @@ import { useAuthStore } from "@/app/store/authStore"
 export default function RequireAuth({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  console.log(isAuthenticated, 'user requireAuth');
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !window.location.pathname.includes('admin')) {
     return <Navigate to={`${paths.login}?redirect=${pathname}`} replace />
   }
 

@@ -1,5 +1,4 @@
 import { createContext, useContext } from 'react'
-import { redirect } from 'react-router-dom'
 
 import { getUser } from '@/admin/api/services/auth.service'
 import { clearStorage, getToken, setSavedRole } from '@/admin/api/services/storage.service'
@@ -48,6 +47,7 @@ export const initializeAuthStore = () =>
           })
         })
         .catch(() => {
+          clearStorage()
           set({
             isAuthenticated: false,
             state: 'finished'
@@ -71,13 +71,12 @@ export const initializeAuthStore = () =>
 
         new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
           clearStorage()
+          window.location.href = '/admin/login'
           set({
             isAuthenticated: false,
             state: 'finished',
             user: undefined
           })
-
-          redirect('/')
         })
       },
       reload: async () => {

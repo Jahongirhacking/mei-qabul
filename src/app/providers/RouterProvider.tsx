@@ -1,7 +1,6 @@
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom"
 
 import { Layout } from "@/admin/app/layout/Layout"
-import { AuthProvider } from "@/admin/app/providers/AuthProvider"
 import SuspenseWrapper from "@/admin/app/router/SuspenseWrapper"
 import { privateRoutes, publicRoutes } from "@/admin/app/router/routes"
 import RequireAuth from "@/app/router/RequireAuth"
@@ -25,7 +24,9 @@ import ProfilePage from "@/pages/cabinet/ProfilePage.tsx"
 export const RouterProvider = () => {
   const state = useAuthStore((state) => state.state)
 
-  if (state === "loading") {
+  console.log(state);
+
+  if (state === "loading" && !window.location.pathname.includes('admin')) {
     return <GlobalSpinner />
   }
 
@@ -77,11 +78,7 @@ export const RouterProvider = () => {
             }
           >
             {privateRoutes.map((route) => (
-              <Route key={route.path} path={route.path} element={(
-                <AuthProvider>
-                  {route.element}
-                </AuthProvider>
-              )} />
+              <Route key={route.path} path={route.path} element={(route.element)} />
             ))}
           </Route>
 
@@ -90,10 +87,7 @@ export const RouterProvider = () => {
               key={publicRoute.path}
               path={publicRoute.path}
               element={(
-                <AuthProvider>
-                  <SuspenseWrapper>{publicRoute.element}</SuspenseWrapper>
-                </AuthProvider>
-
+                <SuspenseWrapper>{publicRoute.element}</SuspenseWrapper>
               )}
             />
           ))}

@@ -1,4 +1,4 @@
-import type { RouteObject } from 'react-router-dom'
+import { Navigate, type RouteObject } from 'react-router-dom'
 
 import paths from '@/admin/app/router/paths'
 import AdmisssionsPage from '@/admin/pages/Admissions/AdmissionsPage'
@@ -51,6 +51,10 @@ export const publicRoutes: RouteObject[] = [
 ]
 
 export const privateRoutes: RouteObject[] = [
+  {
+    path: paths.home,
+    element: <Navigate to={paths.login} />
+  },
   {
     path: paths.home,
     element: <LoginPage />
