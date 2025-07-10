@@ -77,9 +77,7 @@ export function AdmissionStep4() {
     }
   }
 
-  const { data: specialties } = useGetAdmissionSpecialties({
-    degreeId,
-  })
+  const { data: specialties } = useGetAdmissionSpecialties({ degreeId })
   const { data: degrees, isFetching: loading } = useGetAdmissionDegrees({})
 
   const isApplyDisabled = !degreeId || !specialtyId

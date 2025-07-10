@@ -58,7 +58,9 @@ export const useGetAdmissionLanguages = (
   })
 
 export const useGetAdmissionSpecialties = (params: AdmissionParams) =>
-  useGet<Specialty[]>('/admission/specialities/by-classificatory', params)
+  useGet<Specialty[]>('/admission/specialities/by-classificatory', params, {
+    enabled: !!params.degreeId
+  })
 
 export const useApply = (options: MutationOptions<ApplyDto, BaseResponse<string>>) =>
   useCreate<BaseResponse<string>, ApplyDto>('/application', options)
