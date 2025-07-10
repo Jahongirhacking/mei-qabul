@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next"
 
 import { universityName } from "@/app/config"
 import { Flex, Typography } from "antd"
-import { Globe, Mail, MapPin, Phone } from "lucide-react"
+import { Globe, Mail, MapPin, Phone, Send } from "lucide-react"
 
 // const socials = [
 //   {
@@ -59,6 +59,10 @@ export const Footer = () => {
               <h3 className="text-lg font-semibold mb-6">{t("footer.contact")}</h3>
               <ul className="space-y-4">
                 <li className="flex items-center">
+                  <Send size={20} className="text-university-primary mr-2" />
+                  <a href="https://t.me/meiqabul" target="_blank" className="text-gray-300">@meiqabul</a>
+                </li>
+                <li className="flex items-center">
                   <Globe size={20} className="text-university-primary mr-2" />
                   <a href={`${t("footer.site")}`} target="_blank" className="text-gray-300">{t("footer.site")}</a>
                 </li>
@@ -76,12 +80,21 @@ export const Footer = () => {
                   <Mail size={20} className="text-university-primary mr-2" />
                   <a href={`mailto:${t("footer.email")}`} target="_blank" className="text-gray-300">{t("footer.email")}</a>
                 </li>
-                <li className="flex items-start">
-                  <MapPin size={20} className="text-university-primary mr-2 mt-1" />
-                  <span className="text-gray-300">{t("footer.address")}</span>
-                </li>
               </ul>
             </div>
+          </section>
+
+          <section className="flex flex-col">
+            <h3 className="text-lg font-semibold mb-6">Адрес</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start">
+                <MapPin size={20} className="text-university-primary mr-2 mt-1" />
+                <span className="text-gray-300">{t("footer.address")}</span>
+              </li>
+              <li>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3230.7265013640053!2d69.21037622561907!3d41.371215229335455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDIyJzIxLjEiTiA2OcKwMTInMzYuMyJF!5e1!3m2!1sen!2s!4v1752124606301!5m2!1sen!2s" width="280" height="160" style={{ border: 0 }} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+              </li>
+            </ul>
           </section>
         </div>
 

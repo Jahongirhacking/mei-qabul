@@ -27,11 +27,31 @@ export default function LoginPage() {
       setToken(user.token)
       const isAuthenticated = await reload()
       if (!isAuthenticated) {
-        toast.error('Failed to log in.')
+        toast.error('Tizimga kirib boʻlmadi.')
         return
       }
-      toast.success('Successfully logged in.')
+      toast.success('Tizimga muvaffaqiyatli kirildi.')
       navigate(paths.statistics)
+    },
+    onError: (error: unknown) => {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'response' in error &&
+        typeof (error as { response?: unknown }).response === 'object' &&
+        (error as { response?: unknown }).response !== null
+      ) {
+        const response = (error as { response: { status?: number; data?: { message?: string } } }).response
+        if (response.status === 502) {
+          toast.error('Server mavjud emas (502). Iltimos, keyinroq urinib koʻring.')
+        } else if (response.data && response.data.message) {
+          toast.error(response.data.message)
+        } else {
+          toast.error('Kirishda xatolik yuz berdi.')
+        }
+      } else {
+        toast.error('Kirishda xatolik yuz berdi.')
+      }
     }
   })
 
@@ -67,14 +87,14 @@ export default function LoginPage() {
               variant="filled"
             >
               <Form.Item<SignInInputs> label="Login" name="phoneNumber" rules={[{ required: true }]}>
-                <Input size="large" placeholder="Enter your login" />
+                <Input size="large" placeholder="Login kiriting" />
               </Form.Item>
               <Form.Item<SignInInputs>
-                label="Password"
+                label="Parol"
                 name="password"
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[{ required: true, message: 'Iltimos, parolingizni kiriting!' }]}
               >
-                <Input.Password size="large" placeholder="Enter your password" />
+                <Input.Password size="large" placeholder="Parolingizni kiriting" />
               </Form.Item>
 
               <div className="pt-12">
@@ -86,7 +106,7 @@ export default function LoginPage() {
                   htmlType="submit"
                   size="large"
                 >
-                  Войти
+                  Kirish
                 </Button>
               </div>
             </Form>
