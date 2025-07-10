@@ -7,7 +7,6 @@ import RequireAuth from "@/app/router/RequireAuth"
 import { useAuthStore } from "@/app/store/authStore"
 import { GlobalSpinner } from "@/components/GlobalSpinner"
 import ProfileLayout from "@/components/ProfileLayout"
-import AdmissionExamPage from "@/pages/AdmissionExamPage"
 import AdmissionPage from "@/pages/AdmissionPage"
 import HomePage from "@/pages/HomePage"
 import NotFound from "@/pages/NotFound"
@@ -49,7 +48,6 @@ export const RouterProvider = () => {
           }
         >
           <Route index element={<AdmissionPage />} />
-          <Route path="exam" element={<AdmissionExamPage />} />
         </Route>
 
         <Route

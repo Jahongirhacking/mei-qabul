@@ -9,7 +9,6 @@ import { ApplicationInterviewCard } from '@/components/cards/ApplicationIntervie
 import { ApplicationOnlineCard } from '@/components/cards/ApplicationOnlineCard'
 import { ApplicationRecommendationCard } from '@/components/cards/ApplicationRecommendationCard'
 import { ApplicationResultCard } from '@/components/cards/ApplicationResultCard'
-import { TestCard } from '@/components/cards/TestCard'
 import { UserInfoCard } from '@/components/cards/UserInfoCard'
 import { ApplicationStatusEnum, ExamTypeEnum } from '@/types/enum'
 import { Flex, Modal, Tag } from 'antd'
@@ -120,8 +119,6 @@ export default function ApplicationsPage() {
       case ExamTypeEnum.ONLINE:
         return (
           <div className="grid md:grid-cols-[1fr_auto] gap-2">
-            <TestCard application={application} />
-
             <ApplicationOnlineCard
               // hideCancel={!isCancelVisible}
               application={application}

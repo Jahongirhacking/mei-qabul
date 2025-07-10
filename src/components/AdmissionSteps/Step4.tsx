@@ -80,21 +80,7 @@ export function AdmissionStep4() {
   const { data: specialties } = useGetAdmissionSpecialties({
     degreeId,
   })
-  const { data: degrees, isFetching: loading } = useGetAdmissionDegrees({
-    // admissionTypeId
-  })
-  // const { data: languages, isFetching: languagesLoading } = useGetAdmissionLanguages({
-  //   eduLevelId: isTransferAdmissionType ? eduLevelId! + 1 : eduLevelId,
-  //   degreeId,
-  //   eduTypeId,
-  //   admissionTypeId
-  // })
-
-  // const { create: createExam, isCreating: isCreatingExam } = useCreateExam({
-  //   onSuccess: () => {
-  //     navigate('/admission/exam')
-  //   }
-  // })
+  const { data: degrees, isFetching: loading } = useGetAdmissionDegrees({})
 
   const isApplyDisabled = !degreeId || !specialtyId
   const isExamTypeHidden = true
