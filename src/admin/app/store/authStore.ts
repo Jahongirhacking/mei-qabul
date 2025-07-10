@@ -56,7 +56,9 @@ export const initializeAuthStore = () =>
     }
 
     if (isLoggedIn()) {
-      getUserProfile()
+      if (window.location.pathname.includes('admin')) {
+        getUserProfile()
+      }
     }
 
     return {

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import { useGetApplications } from '@/api/services/application.service'
 import { useAuthStore } from '@/app/store/authStore'
 import AnimatedButton, { AnimatedButtonProps } from '@/components/AnimatedButton'
-import { Steps } from 'antd'
+import { ApplicationStatusEnum } from '@/types/enum'
+import { CheckCircleOutlined, CloseCircleOutlined, SyncOutlined } from '@ant-design/icons'
+import { Skeleton, Steps, Tag } from 'antd'
 import { Download } from 'lucide-react'
 
 export const AdmissionTracking = () => {
@@ -12,11 +14,23 @@ export const AdmissionTracking = () => {
 
   const { data: application, isLoading } = useGetApplications()
 
-  if (isLoading) {
-    return null
-  }
-
   const isApplied: boolean = !!application
+
+  const getApplicationStatus = () => {
+    if (!application) {
+      return "Вы не подали заявление"
+    }
+
+    if (application?.status === ApplicationStatusEnum.APPROVED) {
+      return <Tag icon={<CheckCircleOutlined />} color='success'>Заявление принято</Tag>
+    }
+
+    if (application?.status === ApplicationStatusEnum.CANCELLED) {
+      return <Tag icon={<CloseCircleOutlined />} color='error'>Заявление не принято</Tag>
+    }
+
+    return <Tag icon={<SyncOutlined spin />} color='processing'>Заявление рассматривается</Tag>
+  }
 
   const getCurrentStep = () => {
     if (application) {
@@ -28,51 +42,43 @@ export const AdmissionTracking = () => {
   return (
     <div className="mt-4 gap-8 bg-white rounded-2xl p-4">
       <div className="max-w-5xl mx-auto">
-        <div>
-          <Steps
-            progressDot
-            labelPlacement="vertical"
-            current={getCurrentStep()}
-            items={[
-              {
-                title: <Title>{isApplied ? 'Заявление подано' : 'Заявление отсутствует'}</Title>,
-                description: isApplied ? (
-                  <>
-                    {user?.applicantRegistrationForm && (
-                      <a
-                        target="_blank"
-                        href={user.applicantRegistrationForm}
-                        download="Регистрационный_листa.pdf"
-                      >
-                        <StepBtn>
-                          <Download size={18} /> Регистрационный лист
-                        </StepBtn>
-                      </a>
-                    )}
-                  </>
-                ) : (
-                  <Link to="/admission">
-                    <StepBtn>Подать заявление</StepBtn>
-                  </Link>
-                )
-              },
+        <div className='profile-steps'>
+          {
+            isLoading
+              ? <Skeleton.Input active style={{ width: '100%' }} />
+              : (
+                <Steps
+                  progressDot
+                  labelPlacement="vertical"
+                  current={getCurrentStep()}
+                  items={[
+                    {
+                      title: <Title>{isApplied ? 'Заявление подано' : 'Заявление отсутствует'}</Title>,
+                      description: !isApplied && (
+                        <Link to="/admission">
+                          <StepBtn>Подать заявление</StepBtn>
+                        </Link>
+                      )
+                    },
 
-              // {
-              //   title: (
-              //     <Title>
-              //       {isHaveContract ? 'Shartnoma shakllangan' : 'Shartnoma mavjud emas'}
-              //     </Title>
-              //   ),
-              //   description: isHaveContract ? (
-              //     <a target="_blank" href={user.contractUrl} download="Shartnoma.pdf">
-              //       <StepBtn>
-              //         <Download size={18} /> Shartnoma
-              //       </StepBtn>
-              //     </a>
-              //   ) : null
-              // }
-            ]}
-          />
+                    {
+                      title: <Title>{getApplicationStatus()}</Title>,
+                      description: isApplied && user?.applicantRegistrationForm && (
+                        <a
+                          target="_blank"
+                          href={user.applicantRegistrationForm}
+                          download="Регистрационный_листa.pdf"
+                        >
+                          <StepBtn>
+                            <Download size={18} /> Регистрационный лист
+                          </StepBtn>
+                        </a>
+                      )
+                    },
+                  ]}
+                />
+              )
+          }
         </div>
       </div>
     </div>
