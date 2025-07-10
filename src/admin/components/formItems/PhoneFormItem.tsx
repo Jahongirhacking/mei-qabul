@@ -7,7 +7,7 @@ const validatePhone = (_: unknown, value: string) => {
   if (digits.length === 12) {
     return Promise.resolve()
   }
-  return Promise.reject(new Error('Please enter a valid phone number'))
+  return Promise.reject(new Error("Iltimos to'g'ri telefon raqam kiriting"))
 }
 
 const CustomInput = (props: InputProps) => {
@@ -46,7 +46,7 @@ export function PhoneFormItem({ hidePlus, ...props }: PhoneFormItemProps) {
     <Form.Item
       name="phone"
       rules={[
-        { required: props.required, message: 'Please input your phone number!' },
+        { required: props.required, message: 'Telefon raqam kiriting' },
         { validator: validatePhone }
       ]}
       {...props}

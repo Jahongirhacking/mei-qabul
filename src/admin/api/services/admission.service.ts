@@ -10,7 +10,7 @@ export interface IStudent {
 export const useGetAppCountByGender = (params: { universityCode?: number }) =>
   useGet<IStudent[]>(`/statistic/report/by-gender`, params)
 export const useGetAppCountBySpeciality = (params: { eduTypeId?: number }) =>
-  useGet<IStudent[]>(`/statistic/report/specialities`, params)
+  useGet<IStudent[]>(`/statistic/report/by-speciality`, params)
 // export const useGetAppCountByEduForm = (params: { universityCode?: number }) =>
 //   useGet<IStudent[]>(`/statistic/report/by-edu-form`, params)
 // export const useGetAppCountByLanguage = (params: { universityCode?: number }) =>
