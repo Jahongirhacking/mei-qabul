@@ -43,7 +43,7 @@ export default function LoginPage() {
       ) {
         const response = (error as { response: { status?: number; data?: { message?: string } } }).response
         if (response.status === 502) {
-          toast.error('Server mavjud emas (502). Iltimos, keyinroq urinib koʻring.')
+          toast.error('Serverda xatolik (502). Iltimos, keyinroq urinib koʻring.')
         } else if (response.data && response.data.message) {
           toast.error(response.data.message)
         } else {
