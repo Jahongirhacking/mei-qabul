@@ -27,6 +27,7 @@ import {
   IUniversityInfoResponse,
   Role
 } from '@/admin/types/Classificatory'
+import { IGetApplicationByIdResponse } from '@/admin/types/Contracts'
 import { BaseResponse, Pagination, WithId } from '@/admin/types/IRequest'
 
 import { httpService } from '../http'
@@ -103,6 +104,15 @@ export const useGetApplicationsForCallCenter = (options: IGetApplicationsForCall
   useGet<Pagination<IGetApplicationsForCallCenterResponse[]>, IGetApplicationsForCallCenterOptions>(
     '/admin/applications',
     options
+  )
+
+export const useGetApplicationDetail = ({ id }: { id: number }) =>
+  useGet<BaseResponse<IGetApplicationByIdResponse>, object>(
+    `/admin/application/${id}`,
+    {},
+    {
+      enabled: !!id
+    }
   )
 
 export const useGetCertificates = (options: IGetCertificatesOptions) =>

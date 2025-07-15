@@ -288,6 +288,7 @@ export interface OldEdu {
   speciality: string
   transcript: string
   university: string
+  schoolCertificate?: string
 }
 
 export interface IUpdateApplicationDto {

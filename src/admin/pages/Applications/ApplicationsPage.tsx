@@ -1,26 +1,18 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useCallback, useState } from 'react'
 
 import {
   useGetApplicationsForCallCenter,
   useGetEduDegreesList,
-  useGetEduDegreesListByFilter,
-  useGetEduLanguagesList,
-  useGetEduLanguagesListByFilter,
+  useGetEduDegreesListByFilter, useGetEduLanguagesListByFilter,
   useGetEduLevelsList, useGetSpecialtiesList,
   useGetSpecialtiesListByFilter
 } from '@/admin/api/services/common.service'
 import {
   useApproveOrRejectApplications,
-  useAproveRecommendation,
-  useAproveTargetApplication,
-  useDownloadExcelApplications,
-  useRejectTargetApplication,
-  useUpdateApplication
+  useAproveRecommendation, useDownloadExcelApplications, useUpdateApplication
 } from '@/admin/api/services/contracts.service'
 import { uploadFile } from '@/admin/api/services/upload.service'
 import { useUpdateUserPhoneNumber } from '@/admin/api/services/user.service'
-import { useAuthStore } from '@/admin/app/store/authStore'
 import { Container } from '@/admin/components/Container'
 import { CustomModal } from '@/admin/components/CustomModal'
 import { SearchInput } from '@/admin/components/filters/SearchInput'
@@ -38,7 +30,8 @@ import { AdmissionTypeIdEnum, ApplicationStatusEnum } from '@/admin/types/enum'
 import {
   applicationStatusList, getApplicationStatusColor,
   getApplicationStatusName,
-  openLink
+  openLink,
+  SearchParams
 } from '@/admin/utils/constants'
 import { clearPhoneMask, formatToPhoneMask } from '@/admin/utils/format'
 import { successHandler } from '@/admin/utils/lib'
@@ -50,9 +43,11 @@ import {
   Input,
   InputNumber, TableColumnsType
 } from 'antd'
-import TextArea from 'antd/es/input/TextArea'
+import { default as TextArea } from 'antd/es/input/TextArea'
 import { CloudDownload, Download, Eye } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
+import ApplicationDetailModal from './ApplicationDetailModal'
 
 type FormValues = {
   message: string
@@ -90,11 +85,8 @@ export default function ApplicationsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [aplicationModalOpen, setAplicationModalOpen] = useState(false)
   const [adviceModalOpen, setAdviceModalOpen] = useState(false)
-  const { onCreate, isOpen, closeModal, form } = useModalCRUD<P>()
-  const navigate = useNavigate()
-  const user = useAuthStore((state) => state.user)
-
-  console.log(applicationId);
+  const { isOpen, closeModal, form } = useModalCRUD<P>()
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [phoneForm] = Form.useForm()
   const [adviceForm] = Form.useForm()
@@ -133,7 +125,6 @@ export default function ApplicationsPage() {
     },
     enabled: !!admissionTypeIdByFilter && !!eduLevelIdByFilter && !!admissionTypeIdByFilter
   })
-  const { data: languageList } = useGetEduLanguagesList()
   const { data: languageListByFilter } = useGetEduLanguagesListByFilter({
     params: {
       admissionTypeId: admissionTypeIdByFilter,
@@ -158,7 +149,7 @@ export default function ApplicationsPage() {
   })
 
   // const { data: eduTypeList } = useGetEduTypesList()
-  const { isAdmin, isSuperAdmin } = usePermission()
+  const { isAdmin } = usePermission()
   const confirm = useConfirm()
 
   // const { data: application, isLoading } = useGetApplicationById(applicationId)
@@ -189,24 +180,6 @@ export default function ApplicationsPage() {
       adviceForm.resetFields()
     }
   })
-
-  const { mutate: approveTargetApplication, isPending: pendingApproveApplication } =
-    useAproveTargetApplication(applicationId!, {
-      onSuccess: (data) => {
-        successHandler(data)
-        refetch()
-        setIsModalOpen(false)
-      }
-    })
-
-  const { mutate: rejectTargetApplication, isPending: pendingRejectApplication } =
-    useRejectTargetApplication(applicationId!, {
-      onSuccess: (data) => {
-        successHandler(data)
-        refetch()
-        setIsModalOpen(false)
-      }
-    })
 
   const { mutate: updateApplication, isPending: isUpdateApplication } = useUpdateApplication(
     applicationIdForUpdate!,
@@ -300,39 +273,34 @@ export default function ApplicationsPage() {
         }
       ]
       : []),
-    // ...(isSuperAdmin ||
-    //   (user?.universityId === 101 && isAdmin) ||
-    //   (user?.universityId === 99 && isAdmin) ||
-    //   (user?.universityId === 9 && isAdmin)
-    //   ? [
-    //     {
-    //       title: 'Amallar',
-    //       dataIndex: 'id',
-    //       render: (_: number, record: IGetApplicationsForCallCenterResponse) => {
-    //         return (
-    //           <Space>
-    //             {record.status === ApplicationStatusEnum.APPROVED && !record.existsContract && (
-    //               <EditIconButton onClick={() => handleEditApplicationButton(record)} />
-    //             )}
-    //             {(admissionTypeId === AdmissionTypeIdEnum.TRANSFER ||
-    //               admissionTypeId === AdmissionTypeIdEnum.SECOND_DEGREE ||
-    //               admissionTypeId === AdmissionTypeIdEnum.TECHNICAL ||
-    //               admissionTypeId === AdmissionTypeIdEnum.MAGISTR) && (
-    //                 <Button
-    //                   icon={<Eye size={16} />}
-    //                   onClick={() => {
-    //                     showModal()
-    //                     setApplicationId(record.id)
-    //                   }}
-    //                 />
-    //               )}
-    //           </Space>
-    //         )
-    //       }
-    //     }
-    //   ]
-    //   : [])
+    {
+      title: 'Amallar',
+      dataIndex: 'id',
+      fixed: 'right',
+      render: (_: number, record: IGetApplicationsForCallCenterResponse) => (
+        <Button
+          icon={<Eye size={16} />}
+          onClick={() => {
+            showApplicationModal(record.id)
+          }}
+        />
+      )
+    }
   ]
+
+  const showApplicationModal = (id: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(SearchParams.ApplicationId, String(id));
+    setSearchParams(params);
+    setIsModalOpen(true);
+  }
+
+  const hideApplicationModal = useCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(SearchParams.ApplicationId);
+    setSearchParams(params);
+    setIsModalOpen(false);
+  }, [searchParams, setSearchParams])
 
   const { download, isDownload } = useDownloadExcelApplications({
     onSuccess: (data) => {
@@ -382,16 +350,7 @@ export default function ApplicationsPage() {
   }
 
   const showModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleOk = () => {
-    approveTargetApplication()
-    // setIsModalOpen(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalOpen(false)
+    // setIsModalOpen(true)
   }
 
   // const items: DescriptionsProps['items'] = [
@@ -548,7 +507,7 @@ export default function ApplicationsPage() {
   // ]
 
   const submit = (values: FormValues) => {
-    rejectTargetApplication(values)
+    // rejectTargetApplication(values)
   }
 
   const submitAdvice = async (values: AdmiceFormValues) => {
@@ -714,6 +673,8 @@ export default function ApplicationsPage() {
         }}
       />
 
+      <ApplicationDetailModal isOpen={isModalOpen} onCancel={hideApplicationModal} />
+
       {/* <Modal
         width={600}
         title={
@@ -765,7 +726,7 @@ export default function ApplicationsPage() {
         open={isOpen}
         onCancel={closeModal}
         onSubmit={form.submit}
-        loading={pendingRejectApplication}
+      // loading={pendingRejectApplication}
       >
         <Form form={form as FormInstance} layout="vertical" onFinish={submit}>
           <Form.Item name="message" label="Bekor qilishi" rules={[{ required: true }]}>

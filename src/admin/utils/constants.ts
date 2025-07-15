@@ -20,6 +20,10 @@ export const examTypeList = [
   }
 ]
 
+export enum SearchParams {
+  ApplicationId = 'application-id'
+}
+
 export const examStatusList = [
   {
     label: 'Yangi',
