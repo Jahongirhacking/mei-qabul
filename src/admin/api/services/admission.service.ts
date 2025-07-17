@@ -7,23 +7,20 @@ export interface IStudent {
 
 // export const useGetAppCountByExamType = (params: { universityCode?: number }) =>
 //   useGet<IStudent[]>(`/statistic/report/by-exam-type`, params)
-export const useGetAppCountByGender = (params: { universityCode?: number }) =>
-  useGet<IStudent[]>(`/statistic/report/by-gender`, params)
+export const useGetAppCountByGender = () => useGet<IStudent[]>(`/statistic/report/by-gender`)
 export const useGetAppCountBySpeciality = (params: { eduTypeId?: number }) =>
   useGet<IStudent[]>(`/statistic/report/by-speciality`, params)
 // export const useGetAppCountByEduForm = (params: { universityCode?: number }) =>
 //   useGet<IStudent[]>(`/statistic/report/by-edu-form`, params)
 // export const useGetAppCountByLanguage = (params: { universityCode?: number }) =>
 //   useGet<IStudent[]>(`/statistic/report/by-language`, params)
-export const useGetAppCountByLastTenDay = (params: { universityCode?: number }) =>
-  useGet<IStudent[]>(`/statistic/report/by-last-ten-days`, params)
-export const useGetAppCountByRegion = (params: { universityCode?: number }) =>
-  useGet<IStudent[]>(`statistic/report/by-region`, params)
-export const useGetAppCountByAdmissionType = (params: { universityCode?: number }) =>
-  useGet<IStudent[]>(`/statistic/report/by-admission-type`, params)
+export const useGetAppCountByLastTenDay = () =>
+  useGet<IStudent[]>(`/statistic/report/by-last-ten-days`)
+export const useGetAppCountByRegion = () => useGet<IStudent[]>(`statistic/report/by-region`)
+export const useGetAppCountByAdmissionType = () =>
+  useGet<IStudent[]>(`/statistic/report/by-admission-type`)
 
-export const useGetAppCountEduOrg = (params: { universityCode?: number }) =>
-  useGet<IStudent[]>(`/statistic/report/by-edu-institution`, params)
+export const useGetAppCountEduOrg = () => useGet<IStudent[]>(`/statistic/report/by-edu-institution`)
 
-export const useGetAppCountSchoolGraduated = (params: { universityCode?: number }) =>
-  useGet<IStudent[]>(`/statistic/report/by-school-graduated-year`, params)
+export const useGetAppCountSchoolGraduated = () =>
+  useGet<IStudent[]>(`/statistic/report/by-school-graduated-year`)
