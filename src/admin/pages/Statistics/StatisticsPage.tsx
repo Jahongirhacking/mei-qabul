@@ -49,8 +49,8 @@ export default function StatisticsPage() {
               loading={loadingGender}
               legendBottom={0}
               seriesArr={[
-                { name: 'Erkaklar', value: gender?.find((item) => item.name === 'Мужской')?.count || 0 },
-                { name: 'Ayollar', value: gender?.find((item) => item.name === 'Женский')?.count || 0 }
+                { name: 'Erkaklar', value: gender?.find((item) => item.name === 'Erkak')?.count || 0 },
+                { name: 'Ayollar', value: gender?.find((item) => item.name === 'Ayol')?.count || 0 }
               ]}
               color={['#43B1A0', '#4DA2F1']}
             />
