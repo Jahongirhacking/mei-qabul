@@ -668,7 +668,7 @@ export default function ApplicationsPage() {
             setApplicationId(selectedRowKeys[0] as number);
           },
           getCheckboxProps: (record: IGetApplicationsForCallCenterResponse) => ({
-            disabled: record.existsContract || record.status === ApplicationStatusEnum.CANCELLED || record.status === ApplicationStatusEnum.APPROVED
+            disabled: record.existsContract || record.status === ApplicationStatusEnum.CANCELLED
           })
         }}
       />
