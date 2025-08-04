@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { HOST } from '@/api/http'
+import { useGetApplications } from '@/api/services/application.service'
 import { useGetCertificates } from '@/api/services/certificate.service'
 import { useGetEduInstitutionTypesList } from '@/api/services/common.service'
 import {
@@ -18,15 +19,20 @@ import { SelectInput } from '@/components/inputs/SelectInput'
 import { StepButton } from '@/components/shared/StepButton'
 import { UserCertificates } from '@/components/shared/UserCertiicates'
 import { useSaveStepState } from '@/hooks/useSaveStepState'
+import { ApplicationStatusEnum } from '@/types/enum'
 import { Button, Flex, Form, message, Upload } from 'antd'
 import { BookOpen, CheckCircle2, ChevronLeft, ChevronRight, UploadCloud } from 'lucide-react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 
-export function BachelorForm() {
+export function BachelorForm({ isEdit = false }: { isEdit?: boolean }) {
   const { t } = useTranslation()
   const setCurrentStep = useAdmissionStore((state) => state.setCurrentStep)
   const admissionTypeId = useAdmissionStore((state) => state.stepState.admissionTypeId)
   const [isHaveCertificate, setIsHaveCertificate] = useState(false)
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const { data: applicationData } = useGetApplications();
 
   const { oldEdu, isOldEduLoading } = useGetOldEdu<BachelorAdmissionDto>()
 
@@ -79,6 +85,10 @@ export function BachelorForm() {
     } else {
       create(dto)
     }
+
+    if (isEdit) {
+      navigate('/user');
+    }
   }
 
   useEffect(() => {
@@ -95,9 +105,11 @@ export function BachelorForm() {
     )
   }
 
+  if (applicationData && applicationData?.status === ApplicationStatusEnum.APPROVED) return <Navigate to={"/user"} replace />
+
   return (
     <div>
-      <Form initialValues={oldEdu} autoComplete="off" layout="vertical" onFinish={submit}>
+      <Form initialValues={oldEdu} autoComplete="off" layout="vertical" onFinish={submit} form={form}>
         <div className="mt-6">
           <div>
             <Form.Item label={t('label.completedUniversityType')} required>
@@ -171,13 +183,18 @@ export function BachelorForm() {
         </div>
 
         <div className="mt-6 flex justify-between">
-          <AnimatedButton variant="secondary" onClick={prevStep}>
-            <ChevronLeft size={20} /> {t('action.back')}
-          </AnimatedButton>
+          {
+            !isEdit && (
+              <AnimatedButton variant="secondary" onClick={prevStep}>
+                <ChevronLeft size={20} /> {t('action.back')}
+              </AnimatedButton>
+            )
+          }
 
           <AnimatedButton loading={isNextLoading} type="submit" disabled={isNextDisabled}>
             {t('action.next')} <ChevronRight size={20} />
           </AnimatedButton>
+
         </div>
       </Form>
     </div>

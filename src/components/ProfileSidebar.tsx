@@ -1,37 +1,44 @@
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
+import { useGetApplications } from "@/api/services/application.service"
 import { useAuthStore } from "@/app/store/authStore"
 import { cn } from "@/lib/utils"
+import { ApplicationStatusEnum } from "@/types/enum"
 import { LogOut, MenuIcon, XIcon } from "lucide-react"
 
-const menu = [
-  {
-    name: "Главная страница",
-    icon: "🏠",
-    link: "/user"
-  },
-  {
-    name: "Мои заявления",
-    icon: "📝",
-    link: "/user/applications"
-  },
-  // {
-  //   name: "Mening shartnomam",
-  //   icon: "📋",
-  //   link: "/user/contracts"
-  // },
-  // {
-  //   name: "Til sertifikatlari",
-  //   icon: "📜",
-  //   link: "/user/certificates"
-  // }
-]
 
 export function ProfileSidebar() {
   const pathname = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navigate = useNavigate()
+  const { data: applicationData } = useGetApplications();
+
+
+  const menu = [
+    {
+      name: "Главная страница",
+      icon: "🏠",
+      link: "/user"
+    },
+    {
+      name: "Мои заявления",
+      icon: "📝",
+      link: "/user/applications"
+    },
+    ...(applicationData && applicationData?.status !== ApplicationStatusEnum.APPROVED ? (
+      [{
+        name: "Образование",
+        icon: "🏛",
+        link: "/user/oldEdu"
+      }]) : []
+    ),
+    // {
+    //   name: "Til sertifikatlari",
+    //   icon: "📜",
+    //   link: "/user/certificates"
+    // }
+  ]
 
   const logout = useAuthStore((state) => state.logout)
 

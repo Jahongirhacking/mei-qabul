@@ -7,6 +7,7 @@ import RequireAuth from "@/app/router/RequireAuth"
 import { useAuthStore } from "@/app/store/authStore"
 import { GlobalSpinner } from "@/components/GlobalSpinner"
 import ProfileLayout from "@/components/ProfileLayout"
+import { BachelorForm } from "@/components/forms/stepForms/BachelorForm"
 import AdmissionPage from "@/pages/AdmissionPage"
 import HomePage from "@/pages/HomePage"
 import NotFound from "@/pages/NotFound"
@@ -64,6 +65,7 @@ export const RouterProvider = () => {
           <Route path="contracts" element={<ContractsPage />} />
           <Route path="certificates" element={<CertificatesPage />} />
           <Route path="edit" element={<EditApplication />} />
+          <Route path="oldEdu" element={<BachelorForm isEdit />} />
         </Route>
 
         <Route
