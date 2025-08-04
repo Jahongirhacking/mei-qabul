@@ -25,5 +25,6 @@ export default {
   offlineExam: '/offline-exam',
   settings: '/settings',
   about: '/about',
-  admissionDates: '/admission-dates'
+  admissionDates: '/admission-dates',
+  edit: '/edit'
 } as const

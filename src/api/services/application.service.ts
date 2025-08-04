@@ -1,6 +1,7 @@
+import { IGetApplicationsForCallCenterResponse } from '@/admin/types/Classificatory'
 import { httpService } from '@/api/http'
 import { MutationOptions, useMutation } from '@/api/query'
-import { QueryGetOption, useGet, useUpdate } from '@/api/services/crud.service'
+import { QueryGetOption, useGet, useUpdate, useUpdateWithoutId } from '@/api/services/crud.service'
 import { errorHandler } from '@/lib/handler'
 import { BaseResponse, WithId } from '@/types/IRequest'
 import { ApplicationStatusEnum, ExamStatusEnum, ExamTypeEnum } from '@/types/enum'
@@ -51,3 +52,14 @@ export const useCancelApplication = (options?: MutationOptions<number>) => {
 export const useCreateContractWithContractType = (
   options: MutationOptions<WithId<ICreateContractDto>, BaseResponse<string>>
 ) => useUpdate<BaseResponse<string>, ICreateContractDto>('/generate-contract', options)
+
+export const useUpdateApplication = (
+  options: MutationOptions<
+    Pick<IGetApplicationsForCallCenterResponse, 'specialityId' | 'degreeId'>,
+    BaseResponse<string>
+  >
+) =>
+  useUpdateWithoutId<
+    BaseResponse<string>,
+    Pick<IGetApplicationsForCallCenterResponse, 'specialityId' | 'degreeId'>
+  >('/user/application', options)

@@ -45,6 +45,19 @@ export function useUpdate<R, B>(path: string, options: MutationOptions<WithId<B>
   }
 }
 
+export function useUpdateWithoutId<R, B>(path: string, options: MutationOptions<B, R>) {
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: B) => httpService.put<R, B>(path, data),
+    onError: errorHandler,
+    ...options
+  })
+
+  return {
+    update: mutate,
+    isUpdating: isPending
+  }
+}
+
 export function useCustomUpdate<R, B>(path: string, options: MutationOptions<B, R>) {
   const { mutate, isPending } = useMutation({
     mutationFn: (data: B) => httpService.put<R, B>(path, data),

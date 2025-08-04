@@ -18,6 +18,7 @@ import SignUpPage from "@/pages/auth/SignUpPage"
 import ApplicationsPage from "@/pages/cabinet/ApplicationsPage"
 import CertificatesPage from "@/pages/cabinet/CertificatesPage"
 import ContractsPage from "@/pages/cabinet/ContractsPage"
+import EditApplication from "@/pages/cabinet/EditApplication"
 import ProfilePage from "@/pages/cabinet/ProfilePage.tsx"
 
 export const RouterProvider = () => {
@@ -62,6 +63,7 @@ export const RouterProvider = () => {
           <Route path="applications" element={<ApplicationsPage />} />
           <Route path="contracts" element={<ContractsPage />} />
           <Route path="certificates" element={<CertificatesPage />} />
+          <Route path="edit" element={<EditApplication />} />
         </Route>
 
         <Route

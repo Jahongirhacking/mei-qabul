@@ -68,6 +68,7 @@ export const AdmissionTracking = () => {
                           target="_blank"
                           href={user.applicantRegistrationForm}
                           download="Регистрационный_листa.pdf"
+                          style={{ marginTop: 10, display: 'block' }}
                         >
                           <StepBtn>
                             <Download size={18} /> Регистрационный лист

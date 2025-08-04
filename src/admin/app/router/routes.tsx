@@ -198,5 +198,5 @@ export const privateRoutes: RouteObject[] = [
   {
     path: paths.users + '/edit/:id',
     element: <UserEditPage />
-  }
+  },
 ]

@@ -89,3 +89,9 @@ header {
     width: 100%;
   }
 }
+
+.user-edit-application {
+  .ant-form-item-control {
+    flex: none;
+  }
+}
