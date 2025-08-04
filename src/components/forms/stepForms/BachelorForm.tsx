@@ -58,7 +58,7 @@ export function BachelorForm({ isEdit = false }: { isEdit?: boolean }) {
   })
 
   const changeStepState = useAdmissionStore((state) => state.changeStepState)
-  const { eduInstitutionTypeId, schoolCertificate } = useAdmissionStore(useShallow((state) => state.stepState))
+  const { eduInstitutionTypeId = oldEdu?.eduInstitutionTypeId, schoolCertificate = oldEdu?.schoolCertificate } = useAdmissionStore(useShallow((state) => state.stepState))
 
   const isCertificateRequired = isHaveCertificate && certificates.length === 0
   const isNextDisabled = !eduInstitutionTypeId || isCertificateRequired || !schoolCertificate

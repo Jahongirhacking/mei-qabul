@@ -511,7 +511,6 @@ export default function ApplicationsPage() {
   }
 
   const submitAdvice = async (values: AdmiceFormValues) => {
-    console.log(values)
     const response = await uploadFile(values.highSchoolCertificate[0] as unknown as File)
     approve({
       highSchoolCertificateGrade: values.highSchoolCertificateGrade,
