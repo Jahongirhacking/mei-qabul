@@ -51,7 +51,7 @@ export default function ApplicantsPage() {
 
     return (
         <Container
-            title="Talabgorlar"
+            title="Abituriyentlar"
             extra={<Input.Search allowClear enterButton placeholder='Qidirish' onSearch={(value) => { setSearch(value) }} />}
         >
             <PaginationTable
