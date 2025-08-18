@@ -198,7 +198,8 @@
             "contractTemplates": "Shartnoma shablonlari",
             "contractPrices": "Shartnoma narxlari",
             "educationPeriod": "O'qish davomiyligi",
-            "users": "Foydalanuvchilar"
+            "users": "Foydalanuvchilar",
+            "applicants": "Arizachilar"
         }
     }
 }

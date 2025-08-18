@@ -155,13 +155,19 @@ export const useMenu = (): MenuType[] => {
         label: t('admin.menu.settings'),
         key: paths.settings,
         icon: <Settings size={18} />,
-        permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK],
+        permission: [RoleEnum.SUPER_ADMIN, RoleEnum.VAZIRLIK, RoleEnum.ADMIN],
         children: [
           {
             label: t('admin.menu.users'),
             key: paths.users,
             icon: <Minus size={18} />,
             permission: [RoleEnum.VAZIRLIK, RoleEnum.SUPER_ADMIN]
+          },
+          {
+            label: t('admin.menu.applicants'),
+            key: paths.applicants,
+            icon: <Minus size={18} />,
+            permission: [RoleEnum.VAZIRLIK, RoleEnum.SUPER_ADMIN, RoleEnum.ADMIN]
           }
         ]
       }

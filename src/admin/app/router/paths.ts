@@ -51,5 +51,6 @@ export default {
   contractTemplates: '/admin/contract-templates',
   contractPrices: '/admin/contract-prices',
   educationPeriod: '/admin/education-period',
-  users: '/admin/users'
+  users: '/admin/users',
+  applicants: '/admin/applicants'
 } as const

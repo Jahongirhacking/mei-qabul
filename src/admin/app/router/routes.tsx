@@ -22,6 +22,7 @@ import OnlineApplicationsResultsPage from '@/admin/pages/OnlineApplicationsResul
 import ReportApplicationsPage from '@/admin/pages/Reports/ReportApplicationsPage'
 import AboutOtmPage from '@/admin/pages/Settings/AboutOtm/AboutOtmPage'
 import AdmissionDeadlinesPage from '@/admin/pages/Settings/AdmissionDeadlines/AdmissionDeadlinesPage'
+import ApplicantsPage from '@/admin/pages/Settings/applicants'
 import ContractPricesPage from '@/admin/pages/Settings/ContractPrices/ContractPricesPage'
 import DetailContractPricesPage from '@/admin/pages/Settings/ContractPrices/DetailContractPricesPage'
 import ContractTemplatesPage from '@/admin/pages/Settings/ContractTemplates/ContractTemplatesPage'
@@ -190,6 +191,10 @@ export const privateRoutes: RouteObject[] = [
   {
     path: paths.users,
     element: <UsersPage />
+  },
+  {
+    path: paths.applicants,
+    element: <ApplicantsPage />
   },
   {
     path: paths.users + '/create',

@@ -39,6 +39,32 @@ export type Admin = {
   roles: Role[]
 }
 
+export interface IApplicant {
+  answerSheetUrl: string
+  applicantRegistrationForm: string
+  birthDate: string
+  citizenship: string
+  contractUrl: string
+  currentRole: string
+  currentRoleId: string
+  examType: string
+  fatherName: string
+  firstName: string
+  gender: string
+  givenDate: string
+  id: number
+  isActive: true
+  lastName: string
+  nationality: string
+  phoneNumber: string
+  photo: string
+  pinfl: string
+  serialAndNumber: string
+  step: string
+  university: string
+  universityId: string
+}
+
 export type AdminQuery = {
   search?: string
   isActive?: boolean
@@ -46,6 +72,12 @@ export type AdminQuery = {
   organizationId?: string
   universityId?: string
 } & PaginationOptions
+
+export interface IApplicantReq {
+  page: number
+  size: number
+  search: string
+}
 
 export type AdminDto = {
   pinfl: string
@@ -70,6 +102,9 @@ export type PassportDto = {
 
 export const useGetUsers = (options: AdminQuery) =>
   useGet<Pagination<Admin[]>, AdminQuery>('/admin', options)
+
+export const useGetApplicants = (options: IApplicantReq) =>
+  useGet<Pagination<IApplicant[]>, IApplicantReq>('/user', options)
 
 export const useGetUser = (id: QueryParam) => useGet<Admin>(`/admin/${id}`)
 
