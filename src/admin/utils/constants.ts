@@ -30,16 +30,8 @@ export const examStatusList = [
     value: ExamStatusEnum.NEW
   },
   {
-    label: 'Imtihoni belgilangan',
-    value: ExamStatusEnum.PLANNED
-  },
-  {
     label: "Imtihondan o'tgan",
     value: ExamStatusEnum.SUCCESS
-  },
-  {
-    label: "Imtihondan o'tmagan",
-    value: ExamStatusEnum.FAILED
   }
 ]
 

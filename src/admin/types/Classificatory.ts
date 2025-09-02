@@ -1,4 +1,5 @@
 import { PaginationOptions } from './IRequest'
+import { ExamStatusEnum } from './enum'
 
 type Common = {
   id: number
@@ -130,7 +131,7 @@ export interface ICreateAdmissionDeadlinesDto {
 export type IGetApplicationsForCallCenterOptions = {
   examType?: string
   admissionTypeId?: number
-  examStatus?: string
+  examStatus?: ExamStatusEnum
   specialityId?: number
   search?: string
   eduTypeId?: number
