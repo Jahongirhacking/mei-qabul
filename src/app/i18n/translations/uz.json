@@ -47,7 +47,7 @@
     "questions": [
       {
         "question": "Qachongacha hujjatlar qabul qilinadi?",
-        "answer": "Qabul 2025-yil 30-sentabr kuniga qadar davom etadi"
+        "answer": "Qabul 2026-yil 30-sentabr kuniga qadar davom etadi"
       },
       {
         "question": "Qo'qon universiteti” diplomi rasmiy kuchga egami? Kelgusida ushbu diplom tan olinadimi?",
@@ -73,7 +73,7 @@
     "title": "<0>MPEI</0> - Ta'lim va amaliyot uyg'unligi!",
     "subtitle": "O‘zbekistonning <0>yetakchi</0> universitetlaridan biri",
     "beStudent": "talabasi bo‘ling!",
-    "description": "2025/2026-o‘quv yili uchun <0>qabul</0> boshlandi"
+    "description": "2026/2027-o‘quv yili uchun <0>qabul</0> boshlandi"
   },
   "advantageSection": {
     "title": "Bizning afzalliklarimiz",
@@ -104,7 +104,7 @@
   "footer": {
     "socials": "Biz ijtimoiy tarmoqlarda",
     "contact": "Bog'lanish",
-    "copyright": "2025 “Kokand University” Andijon filiali. All rights reserved.",
+    "copyright": "2026 “Kokand University” Andijon filiali. All rights reserved.",
     "site": "https://kuaf.uz/uz",
     "phone": "+998 74 200 22 22",
     "email": "info@kuaf.uz",
